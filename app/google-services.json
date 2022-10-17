@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "173044428084",
+    "project_id": "au-itp22-grupp-2-spargrisen",
+    "storage_bucket": "au-itp22-grupp-2-spargrisen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173044428084:android:14b6ee07c04eac575bc961",
+        "android_client_info": {
+          "package_name": "com.example.spargrisen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "173044428084-c6pfkg87f6c215kmu7f3vfq0n6av8r5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVZ7Wzf_vKnv1OPyU4gXH0R8jWCLm0FuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173044428084-c6pfkg87f6c215kmu7f3vfq0n6av8r5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
