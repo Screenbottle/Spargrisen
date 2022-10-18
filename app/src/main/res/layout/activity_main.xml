@@ -46,9 +46,10 @@
         android:id="@+id/buttonLogIn"
         android:layout_width="137dp"
         android:layout_height="67dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="28dp"
         android:text="Log in"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.802"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextLösenord" />
 
@@ -61,5 +62,16 @@
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:srcCompat="@drawable/img" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="149dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:text="Sign up"
+        app:layout_constraintEnd_toStartOf="@+id/buttonLogIn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLösenord" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
