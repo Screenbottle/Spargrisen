@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Spargrisen</string>
     <string name="take_photo">Take Photo</string>
+    <string name="sign_up">Sign up</string>
 </resources>
