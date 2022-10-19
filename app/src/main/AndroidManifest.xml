@@ -21,6 +21,20 @@
         android:theme="@style/Theme.Spargrisen"
         tools:targetApi="31">
         <activity
+            android:name=".LoginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CameraActivity"
             android:exported="false">
             <meta-data
