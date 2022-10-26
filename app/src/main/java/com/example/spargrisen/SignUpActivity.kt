@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.spargrisen.fragments.GraphFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -53,7 +54,7 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, GraphFragment::class.java)
                     startActivity(intent)
                     //val user = auth.currentUser
                     Toast.makeText(baseContext, "Du är nu inloggad.",

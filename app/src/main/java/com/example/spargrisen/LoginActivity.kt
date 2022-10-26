@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import com.example.spargrisen.fragments.GraphFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -49,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun goToMainpage (){
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, GraphFragment::class.java)
         startActivity(intent)
     }
     fun goToSignupActivity() {
