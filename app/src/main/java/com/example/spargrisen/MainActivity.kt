@@ -10,9 +10,9 @@ import com.example.spargrisen.fragments.GraphFragment
 import com.example.spargrisen.fragments.HomeFragment
 import com.example.spargrisen.fragments.SettingsFragment
 
+var userID: Int = 0// Users ID
 
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

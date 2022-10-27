@@ -1,17 +1,19 @@
 package com.example.spargrisen
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.spargrisen.fragments.GraphFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import org.checkerframework.common.returnsreceiver.qual.This
+
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -41,18 +43,34 @@ class SignUpActivity : AppCompatActivity() {
 
         val email = findViewById<EditText>(R.id.emailText)
         val password = findViewById<EditText>(R.id.userPassword)
+        val fullname = findViewById<EditText>(R.id.editTextTextPersonName)
 
-        if(email.text.isEmpty() || password.text.isEmpty() ){
+        if(email.text.isEmpty() || password.text.isEmpty() || fullname.text.isEmpty() ){
             Toast.makeText(this, "Fyll i alla fält.",
                 Toast.LENGTH_SHORT).show()
             return
         }
         val inputEmail = email.text.toString()
         val inputPassword = password.text.toString()
+        val inputFullname = fullname.text.toString()
 
         auth.createUserWithEmailAndPassword(inputEmail,inputPassword)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
+                    //Add data to firestore db
+                    val documentReference: DocumentReference = db.collection("users").document(auth.currentUser?.uid.toString())
+                    val user: MutableMap<String, Any> = HashMap()
+                    user["fName"] = fullname
+                    user["email"] = email
+                    documentReference.set(user).addOnSuccessListener {
+                        Log.d(
+                            "DB",
+                            "onSuccess: user Profile created: $userID"
+                        )
+                    }.addOnFailureListener { e -> Log.d("DB", "onFailure: $e") }
+
+
                     // Sign in success, update UI with the signed-in user's information
                     val intent = Intent(this, GraphFragment::class.java)
                     startActivity(intent)
