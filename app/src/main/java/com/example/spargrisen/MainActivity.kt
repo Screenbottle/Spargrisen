@@ -1,33 +1,44 @@
 package com.example.spargrisen
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.spargrisen.databinding.ActivityGraphAndTableBinding
+import com.example.spargrisen.fragments.GraphFragment
+import com.example.spargrisen.fragments.HomeFragment
+import com.example.spargrisen.fragments.SettingsFragment
+
 
 class MainActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_graph_and_table)
+        val viewbinding= ActivityGraphAndTableBinding.inflate(layoutInflater)
 
-        val db = Firebase.firestore
+        setContentView(viewbinding.root)
+        replaceFragment(GraphFragment())
+        viewbinding.bottomNavigation.setOnItemSelectedListener {
 
-        // Create a new user with a first and last name
-        val user = hashMapOf(
-            "first" to "Ada",
-            "last" to "Lovelace",
-            "born" to 1815
-        )
+            when(it.itemId){
+                R.id.ic_graph ->replaceFragment(GraphFragment())
+                R.id.ic_home ->replaceFragment(HomeFragment())
+                R.id.ic_settings ->replaceFragment(SettingsFragment())
 
-        // Add a new document with a generated ID
-        db.collection("users")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference.id}")
             }
-            .addOnFailureListener { e ->
-                Log.w("TAG", "Error adding document", e)
-            }
+            true
+        }
+
+    }
+
+    private fun replaceFragment(fragment: Fragment){
+        if (fragment != null){
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, fragment)
+            transaction.commit()
+        }
+
     }
 }
+
