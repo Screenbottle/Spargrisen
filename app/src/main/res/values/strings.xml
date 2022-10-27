@@ -1,9 +1,26 @@
 <resources>
     <string name="app_name">Spargrisen</string>
     <string name="take_photo">Take Photo</string>
+
     <string name="unknown_error">Unknown error occurred.</string>
     <string name="content_description_google_translate_attribution">Google Translate attribution</string>
     <string name="overlay_help">Center text in box</string>
     <string name="downloading_model_files">Downloading model files…</string>
     <string name="placeholder">Placeholder</string>
+    <string name="sign_up">Sign up</string>
+
+    <string-array name="kategorival">
+        <item>Mat/dryck</item>
+        <item>Boende/hushåll</item>
+        <item>Shopping</item>
+        <item>Hälsa/skönhet</item>
+        <item>Fritid</item>
+        <item>Transport</item>
+        <item>Hem/trädgård</item>
+        <item>Övrigt</item>
+
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
+
