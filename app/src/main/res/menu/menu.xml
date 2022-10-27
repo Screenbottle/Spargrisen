@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ic_graph"
+        android:icon="@drawable/ic_baseline_auto_graph_24"
+        android:title="Graph"/>
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/ic_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Settings"/>
+</menu>
