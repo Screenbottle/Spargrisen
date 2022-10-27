@@ -1,194 +1,183 @@
 package com.example.spargrisen
 
+
 import android.Manifest
-import android.content.ContentValues
 import android.content.pm.PackageManager
-import android.os.Build
+import android.graphics.*
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.SurfaceHolder
+import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.video.Recorder
-import androidx.camera.video.Recording
-import androidx.camera.video.VideoCapture
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.window.layout.WindowMetricsCalculator
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_camera.*
+import kotlinx.android.synthetic.main.activity_camera.overlay
 import com.example.spargrisen.databinding.ActivityCameraBinding
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import android.widget.Toast
-import androidx.camera.core.*
-import androidx.camera.lifecycle.ProcessCameraProvider
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.TextRecognizer
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import java.util.*
-import java.text.SimpleDateFormat
 
 
 class CameraActivity : AppCompatActivity() {
+
+    //private lateinit var surfaceView: SurfaceView
+    private lateinit var holder: SurfaceHolder
     private lateinit var viewBinding: ActivityCameraBinding
-
-    private var imageCapture: ImageCapture? = null
-
-    private var videoCapture: VideoCapture<Recorder>? = null
-    private var recording: Recording? = null
-
-    private lateinit var cameraExecutor: ExecutorService
-
-    private lateinit var recognizer : TextRecognizer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_camera)
+
         viewBinding = ActivityCameraBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
-
-        // Request camera permissions
-        if (allPermissionsGranted()) {
-            startCamera()
-        } else {
-            ActivityCompat.requestPermissions(
-                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-        }
-
-        // Set up the listeners for take photo button
-        viewBinding.imageCaptureButton.setOnClickListener { takePhoto() }
 
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
+        if (isAllPermissionsGranted) startCamera() else requestPermissions()
 
-        recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-    }
-
-    private fun takePhoto() {
-        // Get a stable reference of the modifiable image capture use case
-        val imageCapture = imageCapture ?: return
-
-        // Create time stamped name and MediaStore entry.
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
-            .format(System.currentTimeMillis())
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/CameraX-Image")
-            }
-        }
-
-        // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions
-            .Builder(contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues)
-            .build()
-
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
-        imageCapture.takePicture(
-            outputOptions,
-            ContextCompat.getMainExecutor(this),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+        overlay.apply {
+            setZOrderOnTop(true)
+            holder.setFormat(PixelFormat.TRANSPARENT)
+            holder.addCallback(object : SurfaceHolder.Callback {
+                override fun surfaceChanged(
+                    holder: SurfaceHolder,
+                    format: Int,
+                    width: Int,
+                    height: Int
+                ) {
                 }
 
-                override fun
-                        onImageSaved(output: ImageCapture.OutputFileResults){
-                    val msg = "Photo capture succeeded: ${output.savedUri}"
-                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, msg)
+                override fun surfaceDestroyed(holder: SurfaceHolder) {
                 }
-            }
-        )
-    }
 
-    @ExperimentalGetImage private class ImageTextAnalyzer : ImageAnalysis.Analyzer {
+                override fun surfaceCreated(holder: SurfaceHolder) {
+                    drawOverlay(holder,
+                        DESIRED_HEIGHT_CROP_PERCENT,
+                        DESIRED_WIDTH_CROP_PERCENT
+                    )
+                }
 
-        override fun analyze(imageProxy: ImageProxy) {
-            val mediaImage = imageProxy.image
-            if (mediaImage != null) {
-                val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-                // Pass image to an ML Kit Vision API
-                // ...
-            }
+            })
         }
-    }
-
-    private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-
-        cameraProviderFuture.addListener({
-            // Used to bind the lifecycle of cameras to the lifecycle owner
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
-            // Preview
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(viewBinding.viewFinder.surfaceProvider)
-                }
-            imageCapture = ImageCapture.Builder()
-                .build()
-
-            // Select back camera as a default
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            try {
-                // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
-
-                // Bind use cases to camera
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture)
-
-            } catch(exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
-            }
 
 
-        }, ContextCompat.getMainExecutor(this))
-    }
 
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(
-            baseContext, it) == PackageManager.PERMISSION_GRANTED
-    }
+        //Create the bounding box
+        //surfaceView = findViewById(R.id.overlay)
+        //surfaceView.setZOrderOnTop(true)
+        //holder = surfaceView.holder
+        //holder.setFormat(PixelFormat.TRANSPARENT)
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cameraExecutor.shutdown()
     }
 
     companion object {
-        private const val TAG = "CameraXApp"
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private val TAG = CameraActivity::class.java.name
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS =
-            mutableListOf (
-                Manifest.permission.CAMERA,
-                Manifest.permission.RECORD_AUDIO
-            ).apply {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                }
-            }.toTypedArray()
+        const val DESIRED_WIDTH_CROP_PERCENT = 8
+        const val DESIRED_HEIGHT_CROP_PERCENT = 74
     }
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults:
-        IntArray) {
+
+    private val cameraAdapter = CameraAdapter {
+        Log.d(TAG, "Text Found: $it")
+    }
+
+    private val isAllPermissionsGranted get() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun drawScannedText(
+        holder: SurfaceHolder,
+        text: String
+    ) {
+        val canvas = holder.lockCanvas()
+        val textPaint = Paint()
+
+        val surfaceWidth = holder.surfaceFrame.width()
+        val surfaceHeight = holder.surfaceFrame.height()
+
+        textPaint.color = Color.WHITE
+        textPaint.textSize = 50F
+
+        val textBounds = Rect()
+        textPaint.getTextBounds(text, 0, text.length, textBounds)
+        val textX = (surfaceWidth - textBounds.width()) / 2f
+        val textY = textBounds.height() + surfaceHeight / 4f
+        canvas.drawText(text, textX, textY, textPaint)
+    }
+
+    private fun drawOverlay(
+        holder: SurfaceHolder,
+        heightCropPercent: Int,
+        widthCropPercent: Int,
+    ) {
+        val canvas = holder.lockCanvas()
+        val bgPaint = Paint().apply {
+            alpha = 140
+        }
+        canvas.drawPaint(bgPaint)
+        val rectPaint = Paint()
+        rectPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+        rectPaint.style = Paint.Style.FILL
+        rectPaint.color = Color.WHITE
+        val outlinePaint = Paint()
+        outlinePaint.style = Paint.Style.STROKE
+        outlinePaint.color = Color.WHITE
+        outlinePaint.strokeWidth = 4f
+        val surfaceWidth = holder.surfaceFrame.width()
+        val surfaceHeight = holder.surfaceFrame.height()
+
+        val cornerRadius = 25f
+        // Set rect centered in frame
+        val rectTop = surfaceHeight * heightCropPercent / 2 / 100f
+        val rectLeft = surfaceWidth * widthCropPercent / 2 / 100f
+        val rectRight = surfaceWidth * (1 - widthCropPercent / 2 / 100f)
+        val rectBottom = surfaceHeight * (1 - heightCropPercent / 2 / 100f)
+        val rect = RectF(rectLeft, rectTop, rectRight, rectBottom)
+        canvas.drawRoundRect(
+            rect, cornerRadius, cornerRadius, rectPaint
+        )
+        canvas.drawRoundRect(
+            rect, cornerRadius, cornerRadius, outlinePaint
+        )
+        val textPaint = Paint()
+        textPaint.color = Color.WHITE
+        textPaint.textSize = 50F
+
+        val overlayText = getString(R.string.overlay_help)
+        val textBounds = Rect()
+        textPaint.getTextBounds(overlayText, 0, overlayText.length, textBounds)
+        val textX = (surfaceWidth - textBounds.width()) / 2f
+        val textY = rectBottom + textBounds.height() + 15f // put text below rect and 15f padding
+        canvas.drawText(getString(R.string.overlay_help), textX, textY, textPaint)
+
+
+        holder.unlockCanvasAndPost(canvas)
+    }
+
+    private fun requestPermissions() = ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
+            if (isAllPermissionsGranted) {
                 startCamera()
+                drawOverlay(holder,
+                    DESIRED_HEIGHT_CROP_PERCENT,
+                    DESIRED_WIDTH_CROP_PERCENT
+                )
             } else {
-                Toast.makeText(this,
-                    "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT).show()
-                finish()
+                Snackbar.make(viewFinder, "Camera permission not granted. \nCannot perform magic ritual.", Snackbar.LENGTH_LONG).setAction("Retry") {
+                    requestPermissions()
+                }.show()
             }
         }
-        else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
+    private fun startCamera() = cameraAdapter.startCamera(this, this, viewFinder.surfaceProvider)
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cameraAdapter.shutdown()
+    }
+
 }
