@@ -5,10 +5,6 @@
     <uses-feature android:name="android.hardware.camera.any" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Spargrisen"
         tools:targetApi="31">
+
         <activity
             android:name=".LoginActivity"
             android:exported="false">
@@ -38,8 +35,8 @@
             android:name=".CameraActivity"
             android:exported="false">
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name="com.google.android.gms.vision.DEPENDENCIES"
+                android:value="ocr" />
         </activity>
         <activity
             android:name=".MainActivity"
