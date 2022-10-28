@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#86B4DA"
     tools:context=".LoginActivity">
 
 
@@ -20,16 +21,45 @@
     </LinearLayout>
 
 
-
-
     <TextView
         android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logga in för att starta"
+        android:layout_width="341dp"
+        android:layout_height="87dp"
+        android:text="Hej och välkommen till Spargrisen!"
+        android:textAlignment="center"
+        android:textColor="#070707"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.137" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="353dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="10dp"
+        android:text="Där du enkelt håller koll på dina utgifter genom att manuellt skriva in vad du köper eller genom att använda kameran för att scanna in köpen som sedan visas i en översikt eller grafer  "
+        android:textAlignment="center"
+        android:textColor="#020202"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1" />
+
+    <Button
+        android:id="@+id/gaVidare"
+        android:layout_width="199dp"
+        android:layout_height="63dp"
+        android:background="@color/teal_200"
+        android:backgroundTint="#002B6EBA"
+        android:text="Gå vidare "
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
