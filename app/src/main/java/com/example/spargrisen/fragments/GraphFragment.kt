@@ -2,6 +2,7 @@ package com.example.spargrisen.fragments
 
 import android.os.Bundle
 import android.provider.ContactsContract.Data
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,11 +54,6 @@ class GraphFragment : Fragment() {
 
         auth = Firebase.auth
         var dbController = DatabaseController()
-        //auth.signOut()
-        //dbController.getFullName(dbController.getUID())
-        //dbController.readInputData()
-
-        dbController.convertDateToMillis("01/10/2022")
 
 
         return view

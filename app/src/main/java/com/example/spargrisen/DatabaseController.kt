@@ -62,7 +62,7 @@ class DatabaseController {
     }
 
     // Use this to add input to the database
-    fun addInputData(purchaseName : String, purchaseAmount : Int, purchaseCost : Long, purchaseDate : String) {
+    fun addInputData(purchaseName : String, purchaseAmount : Int, purchaseCost : Long, purchaseDate : String) { // purchaseDate = "DD/MM/YEAR"
         val db = FirebaseFirestore.getInstance()
 
         val purchaseDateToMillis = convertDateToMillis(purchaseDate) // Convert timestamp to millis so we can query it in firestore
@@ -71,14 +71,14 @@ class DatabaseController {
         inputData["purchaseName"] = purchaseName
         inputData["purchaseAmount"] = purchaseAmount
         inputData["purchaseCost"] = purchaseCost
-        inputData["purchaseDate"] = purchaseDateToMillis
+        inputData["purchaseDate"] = purchaseDateToMillis!!
         inputData["purchaseDateString"] = purchaseDate
-
 
         val inputRef = db.collection("users").document(getUID()).collection("values").document()
 
         inputRef.set(inputData).addOnSuccessListener {
             Log.d("DB", "Input added")
+           // Log.d("DB", purchaseDateToMillis.toString())
         }.addOnFailureListener {
             Log.d("DB", "Input failed")
         }
@@ -88,32 +88,17 @@ class DatabaseController {
 
     }
 
-    fun convertDateToMillis (date : String)  {
-
+    fun convertDateToMillis (date : String) : Long? {
         val simpleDate = SimpleDateFormat("dd/M/yyyy")
-        val currentDate = simpleDate.format(java.util.Date())
-
 
         val mDate: java.util.Date? = simpleDate.parse(date)
-        val timeInMilliseconds = mDate?.time
+        val timeInMilliseconds : Long? = mDate?.time
 
-
-        Log.d("DB", currentDate.toString())
         Log.d("DB", timeInMilliseconds.toString())
+
+        return timeInMilliseconds
     }
 
-    fun calculateDateHash(date: DateTime): Int {
-        val day = date.day
-        val month = date.month
-        val year = date.year
-        val initialYear = 2022
-        val lastCalculated = 403
-        val constantMultiplier = 31
-        var value = month * constantMultiplier
-        value = day + value
-        value = value + 403 * (year - initialYear)
-        return value
-    }
 
 
 }
