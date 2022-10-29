@@ -62,7 +62,7 @@ class DatabaseController {
     }
 
     // Use this to add input to the database
-    fun addInputData(purchaseName : String, purchaseAmount : Int, purchaseCost : Int, purchaseDate : Timestamp) {
+    fun addInputData(purchaseName : String, purchaseAmount : Int, purchaseCost : Long, purchaseDate : Timestamp) {
         val db = FirebaseFirestore.getInstance()
 
         val inputData: MutableMap<Any, Any> = HashMap()
