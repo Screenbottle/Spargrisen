@@ -57,6 +57,7 @@ class GraphFragment : Fragment() {
         //dbController.getFullName(dbController.getUID())
         //dbController.readInputData()
 
+        dbController.convertDateToMillis("01/10/2022")
 
 
         return view

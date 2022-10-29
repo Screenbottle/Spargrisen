@@ -1,13 +1,13 @@
 package com.example.spargrisen
 
 import android.util.Log
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.type.Date
+import com.google.type.DateTime
+import java.text.SimpleDateFormat
 
 
 class DatabaseController {
@@ -62,14 +62,17 @@ class DatabaseController {
     }
 
     // Use this to add input to the database
-    fun addInputData(purchaseName : String, purchaseAmount : Int, purchaseCost : Long, purchaseDate : Timestamp) {
+    fun addInputData(purchaseName : String, purchaseAmount : Int, purchaseCost : Long, purchaseDate : String) {
         val db = FirebaseFirestore.getInstance()
+
+        val purchaseDateToMillis = convertDateToMillis(purchaseDate) // Convert timestamp to millis so we can query it in firestore
 
         val inputData: MutableMap<Any, Any> = HashMap()
         inputData["purchaseName"] = purchaseName
         inputData["purchaseAmount"] = purchaseAmount
         inputData["purchaseCost"] = purchaseCost
-        inputData["purchaseDate"] = purchaseDate
+        inputData["purchaseDate"] = purchaseDateToMillis
+        inputData["purchaseDateString"] = purchaseDate
 
 
         val inputRef = db.collection("users").document(getUID()).collection("values").document()
@@ -79,6 +82,37 @@ class DatabaseController {
         }.addOnFailureListener {
             Log.d("DB", "Input failed")
         }
+    }
+
+    fun totalCostThisYear() {
+
+    }
+
+    fun convertDateToMillis (date : String)  {
+
+        val simpleDate = SimpleDateFormat("dd/M/yyyy")
+        val currentDate = simpleDate.format(java.util.Date())
+
+
+        val mDate: java.util.Date? = simpleDate.parse(date)
+        val timeInMilliseconds = mDate?.time
+
+
+        Log.d("DB", currentDate.toString())
+        Log.d("DB", timeInMilliseconds.toString())
+    }
+
+    fun calculateDateHash(date: DateTime): Int {
+        val day = date.day
+        val month = date.month
+        val year = date.year
+        val initialYear = 2022
+        val lastCalculated = 403
+        val constantMultiplier = 31
+        var value = month * constantMultiplier
+        value = day + value
+        value = value + 403 * (year - initialYear)
+        return value
     }
 
 
