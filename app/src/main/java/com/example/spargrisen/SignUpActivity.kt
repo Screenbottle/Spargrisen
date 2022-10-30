@@ -27,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
 
-// Initialize Firebase Auth
+        // Initialize Firebase Auth
         auth = Firebase.auth
 
         val registerBtn = findViewById<Button>(R.id.registerBtn)
@@ -59,19 +59,7 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
 
-                    //Add data to firestore db
-                    val user: MutableMap<String, Any> = HashMap()
-                    user["fName"] = inputFullname
-                    user["email"] = inputEmail
-
-                    val documentReference: DocumentReference = db.collection("users").document(auth.currentUser?.uid.toString())
-
-                    documentReference.set(user).addOnSuccessListener {
-                        Log.d(
-                            "DB",
-                            "onSuccess: user Profile created: $userID"
-                        )
-                    }.addOnFailureListener { e -> Log.d("DB", "onFailure: $e") }
+                    DatabaseController().registerUserToFirestore(inputFullname, inputEmail) // Also register user to Firestore
 
                     // Sign in success, update UI with the signed-in user's information
                     val intent = Intent(this, GraphFragment::class.java)

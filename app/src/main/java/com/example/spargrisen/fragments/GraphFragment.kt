@@ -1,10 +1,13 @@
 package com.example.spargrisen.fragments
 
 import android.os.Bundle
+import android.provider.ContactsContract.Data
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.spargrisen.DatabaseController
 import com.example.spargrisen.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,6 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [GraphFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class GraphFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -49,7 +53,8 @@ class GraphFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_graph, container, false)
 
         auth = Firebase.auth
-        auth.signOut()
+        var dbController = DatabaseController()
+
 
         return view
     }
