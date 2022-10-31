@@ -2,6 +2,7 @@ package com.example.spargrisen
 
 import android.util.Log
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -26,7 +27,7 @@ class DatabaseController {
         db.collection("users").document(uid)
             .get()
             .addOnSuccessListener { document ->
-                fullName = document.getString("fName")
+                fullName = document.getString("userName")
                 Log.d("DB", fullName.toString())
             }
 
@@ -48,10 +49,11 @@ class DatabaseController {
     fun registerUserToFirestore(inputFullname : String, inputEmail : String) {
             val db = FirebaseFirestore.getInstance()
             val auth = Firebase.auth
+       // val UsersId = FirebaseAuth.getInstance().currentUser!!.uid
 
             //Add data to firestore db
             val user: MutableMap<String, Any> = HashMap()
-            user["fName"] = inputFullname
+            user["userName"] = inputFullname
             user["email"] = inputEmail
 
             val documentReference = db.collection("users").document(getUID())

@@ -1,5 +1,6 @@
 package com.example.spargrisen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var userPassword1: EditText
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -62,10 +64,12 @@ class LoginActivity : AppCompatActivity() {
         val email = emailText.text.toString()
         val password = userPassword1.text.toString()
 
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("!!!", "sign in sucess")
+                    goToMainpage()
 
                 } else {
                     Log.d("!!!", "sing in fail ${task.exception}")
