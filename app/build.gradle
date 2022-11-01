@@ -54,6 +54,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.5.3'
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
