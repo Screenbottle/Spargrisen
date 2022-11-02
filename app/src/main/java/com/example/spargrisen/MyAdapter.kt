@@ -1,5 +1,6 @@
 package com.example.spargrisen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spargrisen.fragments.InputText
 import com.google.firebase.firestore.FirebaseFirestore
 
-class MyAdapter (val context: Context, val inputList: List<InputText>):  RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter (val inputList: ArrayList<InputText>):
+    RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
         lateinit var db: FirebaseFirestore
 
         val IteamName: TextView = itemView.findViewById(R.id.purchaseName)
@@ -21,8 +25,9 @@ class MyAdapter (val context: Context, val inputList: List<InputText>):  Recycle
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-      val itemView= LayoutInflater.from(context).inflate(R.layout.category_list, parent, false)
+      val itemView= LayoutInflater.from(parent.context).inflate(R.layout.category_list, parent, false)
         return MyViewHolder(itemView)
     }
 
