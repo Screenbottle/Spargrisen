@@ -26,11 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
+
         if (auth.currentUser == null) {
             val intent = Intent(this, SignUpActivity::class.java)
              startActivity(intent)
             finish()
-            Log.d("aaa", "lol")
         } //else {
 
             setContentView(R.layout.activity_graph_and_table)

@@ -1,7 +1,6 @@
 package com.example.spargrisen.fragments
 
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,7 @@ import com.example.spargrisen.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.jjoe64.graphview.GraphView
-import com.jjoe64.graphview.series.BarGraphSeries
-import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.LineGraphSeries
+import kotlinx.coroutines.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,6 +50,9 @@ class GraphFragment : Fragment() {
 
         auth = Firebase.auth
         var dbController = DatabaseController()
+        dbController.documentsBetweenDates("22/02/2021", "22/02/2022")
+
+
 
 
         return view
