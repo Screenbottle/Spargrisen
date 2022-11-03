@@ -1,9 +1,7 @@
 package com.example.spargrisen
 
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.spargrisen.databinding.ActivityGraphAndTableBinding
@@ -12,8 +10,6 @@ import com.example.spargrisen.fragments.GraphFragment
 import com.example.spargrisen.fragments.HomeFragment
 import com.example.spargrisen.fragments.SettingsFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 var userID: Int = 0// Users ID
 
@@ -24,14 +20,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        auth = Firebase.auth
 
 
-        if (auth.currentUser == null) {
-            val intent = Intent(this, SignUpActivity::class.java)
-             startActivity(intent)
-            finish()
-        } //else {
+
 
             setContentView(R.layout.activity_graph_and_table)
             val viewbinding = ActivityGraphAndTableBinding.inflate(layoutInflater)
@@ -49,9 +40,9 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 true
-            //}
+            }
 
-        }
+
     }
 
     private fun replaceFragment(fragment: Fragment){
