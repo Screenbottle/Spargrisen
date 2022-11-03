@@ -123,18 +123,18 @@ class DatabaseController {
         val db = FirebaseFirestore.getInstance()
         var localPurchaseList: MutableList<Purchases>? = null
 
-            db.collection("users").document(getUID())
-                .collection("values")
-                .whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis(date1)!!)
-                .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis(date2)!!)
-                .get()
-                .addOnSuccessListener { document ->
-                        for (documents in document) {
-                            localPurchaseList = (document.toObjects(Purchases::class.java))
-                    }
-                    purchaseList = localPurchaseList
-                    Log.d("DB", localPurchaseList.toString())
+        db.collection("users").document(getUID())
+            .collection("values")
+            .whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis(date1)!!)
+            .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis(date2)!!)
+            .get()
+            .addOnSuccessListener { document ->
+                for (documents in document) {
+                    localPurchaseList = (document.toObjects(Purchases::class.java))
                 }
+                purchaseList = localPurchaseList
+                Log.d("DB", localPurchaseList.toString())
+            }
 
         Log.d("DBC", purchaseList.toString())
 

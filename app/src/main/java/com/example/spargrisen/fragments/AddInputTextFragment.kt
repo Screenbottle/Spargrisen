@@ -41,7 +41,7 @@ class AddInputTextFragment : Fragment() {
         val checkBtn = view.findViewById<Button>(R.id.checkBtn)
         val sendBtn = view.findViewById<Button>(R.id.sendBtn)
 
-        val itemText = view.findViewById<EditText>(R.id.ItemText)
+        val itemText = view.findViewById<EditText>(R.id.itemText)
         val itemCategory = view.findViewById<EditText>(R.id.itemCategory)
         val priceText = view.findViewById<EditText>(R.id.priceText)
         val date = view.findViewById<CalendarView>(R.id.calendarView)

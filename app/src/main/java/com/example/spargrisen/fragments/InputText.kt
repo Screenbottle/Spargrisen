@@ -10,4 +10,4 @@ data class InputText (
     var price :  Double = 0.00,
     var date : String? = null,
     var done : Boolean = false
-        )
+)

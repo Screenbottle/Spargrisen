@@ -30,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
-        val registerBtn = findViewById<Button>(R.id.registerBtn)
+        val registerBtn = findViewById<Button>(R.id.signupBtn)
         registerBtn.setOnClickListener {
             registerUser()
         }
@@ -44,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
 
         val email = findViewById<EditText>(R.id.emailText)
         val password = findViewById<EditText>(R.id.userPassword)
-        val fullname = findViewById<EditText>(R.id.editTextTextPersonName)
+        val fullname = findViewById<EditText>(R.id.userName)
 
         if(email.text.isEmpty() || password.text.isEmpty() || fullname.text.isEmpty() ){
             Toast.makeText(this, "Fyll i alla fält.",

@@ -25,7 +25,6 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
       val itemView= LayoutInflater.from(parent.context).inflate(R.layout.category_list, parent, false)
         return MyViewHolder(itemView)
@@ -33,15 +32,15 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.IteamName.text = inputList[position].purchaseName
-        holder.IteamCategory.text = inputList[position].purchaseCategory
-        holder.IteamPrice.text = inputList[position].purchaseDate
-        holder.IteamDate.text = inputList[position].purchaseDate
+        holder.IteamName.text = inputList[position].itemName
+        holder.IteamCategory.text = inputList[position].category
+        holder.IteamPrice.text = inputList[position].price.toString()
+        holder.IteamDate.text = inputList[position].date
 
     }
 
     override fun getItemCount(): Int {
-    return inputList.size
+        return inputList.size
     }
 
 }
