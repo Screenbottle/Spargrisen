@@ -14,31 +14,32 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/itemName"
+            android:id="@+id/purchaseName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Produkt"
-            android:textColor="#FF80AB"
-            android:textSize="20sp" />
+            android:textColor="#DCFF80AB"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/category"
+            android:id="@+id/purchaseCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="kategori"
-            android:textSize="15sp"
-            android:textColor="#9E9595" />
+            android:textColor="#9E9595"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pris"
-            android:textSize="15sp"
-            android:textColor="#9A9292" />
+            android:textColor="#9A9292"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/purchaseDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Datum"
