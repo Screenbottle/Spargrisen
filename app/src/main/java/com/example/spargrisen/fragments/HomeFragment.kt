@@ -1,6 +1,7 @@
 package com.example.spargrisen.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.spargrisen.DatabaseController
-import com.example.spargrisen.MyAdapter
-import com.example.spargrisen.R
+import com.example.spargrisen.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -59,6 +58,9 @@ class HomeFragment : Fragment() {
         inputList = arrayListOf()
 
         val addInputBtn = view.findViewById<FloatingActionButton>(R.id.addInputBtn)
+        val addInputCameraBtn = view.findViewById<FloatingActionButton>(R.id.addInputCameraBtn)
+        val addManualInputBtn = view.findViewById<FloatingActionButton>(R.id.addManualInputBtn)
+
 
         addInputBtn.setOnClickListener {
 //            val intent = Intent(requireContext(), LoginActivity::class.java)
@@ -83,6 +85,20 @@ class HomeFragment : Fragment() {
                 isOpen = true
 
             }
+
+            addInputCameraBtn.setOnClickListener{
+
+                 val intent = Intent(requireContext(), CameraActivity::class.java)
+                startActivity(intent)
+            }
+
+            addManualInputBtn.setOnClickListener{
+                val intent = Intent(requireContext(), ManualInput::class.java)
+                startActivity(intent)
+
+            }
+
+
 
         }
 
