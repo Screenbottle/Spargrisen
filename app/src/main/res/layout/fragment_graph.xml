@@ -15,18 +15,6 @@
         android:src="@drawable/fui_idp_button_background_twitter"
         tools:layout_editor_absoluteX="-5dp" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="77dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="647dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/plusbutton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -65,7 +53,7 @@
         android:layout_width="409dp"
         android:layout_height="660dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="140dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -87,18 +75,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="800dp"
-                android:layout_marginEnd="100dp"
-                android:text="Översikt för perioden"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/period_graph"
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:layout_marginTop="103dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                android:id="@+id/year_graph"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="340dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

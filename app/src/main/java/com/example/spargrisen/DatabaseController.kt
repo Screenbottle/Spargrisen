@@ -34,10 +34,14 @@ class DatabaseController {
         var purchaseAmount : Long = 0,
         var purchaseCost : Long = 0,
         var purchaseDate : Long = 0,
-        var purchaseDateString : String = ""
+        var purchaseDateString : String = "",
     )
 
-    var purchaseList : MutableList<Purchases>? = mutableListOf()
+    val dbRef = FirebaseFirestore.getInstance().collection("users").document(getUID())
+        .collection("values")
+        .whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2020")!!)
+        .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2023")!!)
+
 
     //Get current users UID
     //Example: val currentUID = getUID()
@@ -79,19 +83,19 @@ class DatabaseController {
 
     //Used to register user to the Firestore db
     fun registerUserToFirestore(inputFullname : String, inputEmail : String) {
-            val db = FirebaseFirestore.getInstance()
-            val auth = Firebase.auth
+        val db = FirebaseFirestore.getInstance()
+        val auth = Firebase.auth
 
-            //Add data to firestore db
-            val user: MutableMap<String, Any> = HashMap()
-            user["fName"] = inputFullname
-            user["email"] = inputEmail
+        //Add data to firestore db
+        val user: MutableMap<String, Any> = HashMap()
+        user["fName"] = inputFullname
+        user["email"] = inputEmail
 
-            val documentReference = db.collection("users").document(getUID())
+        val documentReference = db.collection("users").document(getUID())
 
-            documentReference.set(user).addOnSuccessListener {
-                Log.d("DB", "onSuccess: user Profile created: $userID")
-            }.addOnFailureListener { e -> Log.d("DB", "onFailure: $e") }
+        documentReference.set(user).addOnSuccessListener {
+            Log.d("DB", "onSuccess: user Profile created: $userID")
+        }.addOnFailureListener { e -> Log.d("DB", "onFailure: $e") }
     }
 
     // Use this to add input to the database
@@ -117,45 +121,6 @@ class DatabaseController {
         }
     }
 
-    //Use this function to get documents from the DB between specific dates
-    //Example: documentsBetweenDates("01/02/2022", "01/02/2023)
-    fun documentsBetweenDates(date1 : String, date2 : String) {
-        val db = FirebaseFirestore.getInstance()
-        var localPurchaseList: MutableList<Purchases>? = null
-
-        db.collection("users").document(getUID())
-            .collection("values")
-            .whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis(date1)!!)
-            .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis(date2)!!)
-            .get()
-            .addOnSuccessListener { document ->
-                for (documents in document) {
-                    localPurchaseList = (document.toObjects(Purchases::class.java))
-                }
-                purchaseList = localPurchaseList
-                Log.d("DB", localPurchaseList.toString())
-            }
-
-        Log.d("DBC", purchaseList.toString())
-
-
-    }
-
-    fun getTotalCost(date1 : String, date2 : String) {
-        var totalCost: Int = 0
-        GlobalScope.launch(Dispatchers.IO) {
-            documentsBetweenDates(date1, date2)
-
-            for(i in purchaseList!!.indices) {
-
-                totalCost += purchaseList!![i].purchaseCost.toInt()
-
-            }
-            Log.d("tag4", totalCost.toString())
-
-        }
-    }
-
     //Use this function to convert a string date to millis
     //Example: val dateInMillis = convertDateToMillis("02/03/2022")
     fun convertDateToMillis (date : String) : Long? {
@@ -172,3 +137,4 @@ class DatabaseController {
 
 
 }
+
