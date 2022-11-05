@@ -57,7 +57,7 @@ class ManualInput : AppCompatActivity() {
         val priceText = findViewById<EditText>(R.id.priceText)
         val checkBtn = findViewById<Button>(R.id.checkBtn)
         val sendBtn = findViewById<Button>(R.id.sendBtn)
-        val date = findViewById<CalendarView>(R.id.calendarView)
+        val date = findViewById<CalendarView>(R.id.calendarView) // ändras
         //val kategorival = resources.getStringArray(R.array.Kategorival)
 
         checkBtn.setOnClickListener{
@@ -68,20 +68,20 @@ class ManualInput : AppCompatActivity() {
             val txtItemText = itemText.text.toString().trim()
             val txtPriceText = priceText.text.toString().trim()
             val txtItemCategory = itemCategory.text.toString().trim()
-            val sdate = date.date.toString()
-           // val skategorival = kategorival.size.toString()
+            val sdate = date.date.toString() / ändras
+           // val skategorival = kategorival.size.toString() // list alt följer inte med till firebase 
 
             val inputList = hashMapOf(
 
                 "Item" to txtItemText,
                 "Price" to txtPriceText,
                 "itemCategory" to txtItemCategory,
-               // "kategorival" to skategorival,
+               // "kategorival" to skategorival,// ändras visar sama siffra
                 "Date" to sdate)
 
             db.collection("users").document(getUID()).collection("itemList").document().set(inputList)
                 .addOnSuccessListener {
-                    Log.d("DB", "Input added")
+                    Log.d("DB", "Input added") // lägga till if empty
 
                    itemText.text.clear()
                      priceText.text.clear()
