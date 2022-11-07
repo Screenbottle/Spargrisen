@@ -1,14 +1,15 @@
 package com.example.spargrisen
 
 
+
 import android.media.Image
 import android.util.Log
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import java.util.regex.Pattern.*
 
+import java.util.regex.Pattern.*
 
 class MagicTextRecognizer(private val onTextFound: (String) -> Unit)  {
 
@@ -34,10 +35,12 @@ class MagicTextRecognizer(private val onTextFound: (String) -> Unit)  {
 
         val pattern = compile(regex, MULTILINE)
 
+
         text.textBlocks.joinToString {
             it.text.lines().joinToString(" ")
         }.let {
             if (it.isNotBlank()) {
+
                 val matcher = pattern.matcher(it)
                 if (matcher.find()) {
                     // displays the scanned number to the user with the function that was passed along as a constructor
