@@ -46,13 +46,13 @@ class LoginActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
             Log.d("!!!", "${auth.currentUser?.email}")
-            goToMainpage()
+         goToMainpage()
         }
-        auth.signOut()
+       // auth.signOut()
     }
 
     fun goToMainpage (){
-        val intent = Intent(this, GraphFragment::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
     fun goToSignupActivity() {

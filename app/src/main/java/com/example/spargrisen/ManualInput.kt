@@ -56,6 +56,7 @@ class ManualInput : AppCompatActivity() {
         val itemCategory = findViewById<EditText>(R.id.itemCategory)
         val priceText = findViewById<EditText>(R.id.priceText)
         val checkBtn = findViewById<Button>(R.id.checkBtn)
+
         val sendBtn = findViewById<Button>(R.id.sendBtn)
         val date = findViewById<CalendarView>(R.id.calendarView)
         //val kategorival = resources.getStringArray(R.array.Kategorival)

@@ -53,18 +53,19 @@ class DatabaseController {
 
     //Use this to get full name from db
     //Example: val fName = getFullName(getUID())
-    fun getFullName(uid : String) : String? {
+
+    fun getUserName(uid : String) : String? {
         val db = FirebaseFirestore.getInstance()
-        var fullName : String? = ""
+        var userName : String? = ""
 
         db.collection("users").document(uid)
             .get()
             .addOnSuccessListener { document ->
-                fullName = document.getString("fName")
-                Log.d("DB", fullName.toString())
+                userName = document.getString("fName")
+                Log.d("DB", userName.toString())
             }
 
-        return fullName
+        return userName
     }
 
     //Use this to get email from db

@@ -1,10 +1,10 @@
 package com.example.spargrisen
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spargrisen.fragments.InputText
@@ -17,14 +17,16 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
         lateinit var db: FirebaseFirestore
 
-        val IteamName: TextView = itemView.findViewById(R.id.purchaseName)
-        val IteamCategory: TextView = itemView.findViewById(R.id.purchaseCategory)
-        val IteamPrice: TextView = itemView.findViewById(R.id.price)
-        val IteamDate: TextView = itemView.findViewById(R.id.purchaseDate)
+        val tvPurchaseName: TextView = itemView.findViewById(R.id.purchaseName)
+        val tvPurchaseCategory: TextView = itemView.findViewById(R.id.purchaseCategory)
+        val tvPurchasePrice: TextView = itemView.findViewById(R.id.price)
+        val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
+        //val tvKategorival: TextView = itemView.findViewById(R.id.spinnerC)
 
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
       val itemView= LayoutInflater.from(parent.context).inflate(R.layout.category_list, parent, false)
         return MyViewHolder(itemView)
@@ -32,10 +34,11 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.IteamName.text = inputList[position].itemName
-        holder.IteamCategory.text = inputList[position].category
-        holder.IteamPrice.text = inputList[position].price.toString()
-        holder.IteamDate.text = inputList[position].date
+        holder.tvPurchaseName.text = inputList[position].purchaseName
+        holder.tvPurchaseCategory.text = inputList[position].purchaseCategory
+        holder.tvPurchasePrice.text = inputList[position].purchaseCost.toString()
+        holder.tvPurchaseDate.text = inputList[position].purchaseDate
+       // holder.tvKategorival.text = inputList[position].kategorival.toString()
 
     }
 

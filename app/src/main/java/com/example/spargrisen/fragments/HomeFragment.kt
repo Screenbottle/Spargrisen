@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
 
     lateinit var  recyclerView: RecyclerView
     lateinit var inputList : ArrayList<InputText>
-    lateinit var adapter : MyAdapter
     var db = Firebase.firestore
     var isOpen = false
 
@@ -53,8 +52,11 @@ class HomeFragment : Fragment() {
 
         var dbController = DatabaseController()
 
+
         recyclerView = view.findViewById(R.id.recyclerview)
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        //recyclerView.setHasFixedSize(true)
+        //recyclerView.adapter = MyAdapter(inputList)
         inputList = arrayListOf()
 
         val addInputBtn = view.findViewById<FloatingActionButton>(R.id.addInputBtn)
@@ -102,12 +104,11 @@ class HomeFragment : Fragment() {
 
         }
 
-       // recyclerView1.adapter
 
 
         db = FirebaseFirestore.getInstance()
 
-        db.collection("users").document(getUID()).collection("values").get()
+        db.collection("users").document(getUID()).collection("values").get() // ska vara itemList ist för values
             .addOnSuccessListener {
                 if (!it.isEmpty){
                     for (data in it.documents){
@@ -134,9 +135,6 @@ class HomeFragment : Fragment() {
     }
 
 fun fetchData() {
-
-
-
 
 }
 
