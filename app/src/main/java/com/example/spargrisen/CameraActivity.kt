@@ -2,6 +2,7 @@ package com.example.spargrisen
 
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.os.Bundle
@@ -21,7 +22,6 @@ class CameraActivity : AppCompatActivity() {
     //private lateinit var surfaceView: SurfaceView
     private lateinit var holder: SurfaceHolder
     private lateinit var viewBinding: ActivityCameraBinding
-    private lateinit var rect: RectF
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +56,18 @@ class CameraActivity : AppCompatActivity() {
                 }
 
             })
+        }
+
+        viewBinding.cancelButton.setOnClickListener {
+            finish()
+        }
+
+        viewBinding.confirmButton.setOnClickListener {
+            var text = viewBinding.scannedText.text.toString()
+            if (!text.equals(R.string.placeholder.toString(), true)) {
+                text = text.replace(",", ".")
+                val scannedFloat = text.toFloat()
+            }
         }
 
 

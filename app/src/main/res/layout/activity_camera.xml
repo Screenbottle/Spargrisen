@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,14 +27,43 @@
 
         <TextView
             android:id="@+id/scannedText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="250dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginBottom="200dp"
             android:gravity="center"
             android:text="@string/placeholder"
             app:layout_constraintBottom_toBottomOf="@+id/viewFinder"
             app:layout_constraintStart_toStartOf="@+id/viewFinder" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scanned_currency"
+            app:layout_constraintBaseline_toBaselineOf="@+id/scannedText"
+            app:layout_constraintEnd_toStartOf="@+id/scannedText" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="70dp"
+            android:text="@string/confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/viewFinder" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="70dp"
+            android:text="@string/cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/viewFinder"
+            app:layout_constraintStart_toEndOf="@+id/confirmButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

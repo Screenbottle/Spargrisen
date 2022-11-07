@@ -25,9 +25,9 @@ class MagicImageAnalyzer(onTextFound: (String) -> Unit)  : ImageAnalysis.Analyze
             //val croppingRect = createRect(bitmap)
             //val croppedImage = cropImage(bitmap, croppingRect)
 
-            textRecognizer.recognizeImageText(image, imageProxy.imageInfo.rotationDegrees) {
-                imageProxy.close()
-            }
+        textRecognizer.recognizeImageText(image, imageProxy.imageInfo.rotationDegrees) {
+            imageProxy.close()
+        }
         //}
     }
 
