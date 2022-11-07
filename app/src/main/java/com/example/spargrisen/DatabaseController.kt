@@ -42,7 +42,6 @@ class DatabaseController {
         .whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2020")!!)
         .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2023")!!)
 
-
     //Get current users UID
     //Example: val currentUID = getUID()
     fun getUID(): String {
@@ -120,6 +119,7 @@ class DatabaseController {
             Log.d("DB", "Input failed")
         }
     }
+
 
     //Use this function to convert a string date to millis
     //Example: val dateInMillis = convertDateToMillis("02/03/2022")
