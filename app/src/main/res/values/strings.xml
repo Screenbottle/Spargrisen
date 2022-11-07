@@ -8,7 +8,9 @@
     <string name="downloading_model_files">Downloading model files…</string>
     <string name="placeholder">Placeholder</string>
     <string name="sign_up">Sign up</string>
-
+    <string name="scanned_currency">Scanned currency: </string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string-array name="kategorival">
         <item>Mat/dryck</item>
         <item>Boende/hushåll</item>

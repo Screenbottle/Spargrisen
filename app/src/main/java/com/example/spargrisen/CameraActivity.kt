@@ -2,17 +2,15 @@ package com.example.spargrisen
 
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.SurfaceHolder
-import android.view.SurfaceView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.window.layout.WindowMetricsCalculator
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_camera.overlay
@@ -30,6 +28,7 @@ class CameraActivity : AppCompatActivity() {
         setContentView(R.layout.activity_camera)
 
         viewBinding = ActivityCameraBinding.inflate(layoutInflater)
+
 
 
         if (isAllPermissionsGranted) startCamera() else requestPermissions()
@@ -59,14 +58,24 @@ class CameraActivity : AppCompatActivity() {
             })
         }
 
+        viewBinding.cancelButton.setOnClickListener {
+            finish()
+        }
+
+        viewBinding.confirmButton.setOnClickListener {
+            var text = viewBinding.scannedText.text.toString()
+            if (!text.equals(R.string.placeholder.toString(), true)) {
+                text = text.replace(",", ".")
+                val scannedFloat = text.toFloat()
+            }
+        }
 
 
-        //Create the bounding box
-        //surfaceView = findViewById(R.id.overlay)
-        //surfaceView.setZOrderOnTop(true)
-        //holder = surfaceView.holder
-        //holder.setFormat(PixelFormat.TRANSPARENT)
+    }
 
+
+    private val cameraAdapter = CameraAdapter { it: String ->
+        setScannedText(it)
     }
 
     companion object {
@@ -77,38 +86,21 @@ class CameraActivity : AppCompatActivity() {
         const val DESIRED_HEIGHT_CROP_PERCENT = 74
     }
 
-    private val cameraAdapter = CameraAdapter {
-        Log.d(TAG, "Text Found: $it")
-    }
 
     private val isAllPermissionsGranted get() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun drawScannedText(
-        holder: SurfaceHolder,
-        text: String
-    ) {
-        val canvas = holder.lockCanvas()
-        val textPaint = Paint()
-
-        val surfaceWidth = holder.surfaceFrame.width()
-        val surfaceHeight = holder.surfaceFrame.height()
-
-        textPaint.color = Color.WHITE
-        textPaint.textSize = 50F
-
-        val textBounds = Rect()
-        textPaint.getTextBounds(text, 0, text.length, textBounds)
-        val textX = (surfaceWidth - textBounds.width()) / 2f
-        val textY = textBounds.height() + surfaceHeight / 4f
-        canvas.drawText(text, textX, textY, textPaint)
+    private fun setScannedText(scannedText: String) {
+        val textView = findViewById<TextView>(R.id.scannedText)
+        textView.text = scannedText
     }
+
 
     private fun drawOverlay(
         holder: SurfaceHolder,
         heightCropPercent: Int,
-        widthCropPercent: Int,
+        widthCropPercent: Int
     ) {
         val canvas = holder.lockCanvas()
         val bgPaint = Paint().apply {
@@ -127,11 +119,12 @@ class CameraActivity : AppCompatActivity() {
         val surfaceHeight = holder.surfaceFrame.height()
 
         val cornerRadius = 25f
-        // Set rect centered in frame
         val rectTop = surfaceHeight * heightCropPercent / 2 / 100f
         val rectLeft = surfaceWidth * widthCropPercent / 2 / 100f
         val rectRight = surfaceWidth * (1 - widthCropPercent / 2 / 100f)
         val rectBottom = surfaceHeight * (1 - heightCropPercent / 2 / 100f)
+
+        // Set rect centered in frame
         val rect = RectF(rectLeft, rectTop, rectRight, rectBottom)
         canvas.drawRoundRect(
             rect, cornerRadius, cornerRadius, rectPaint

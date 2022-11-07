@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CameraActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.camera.view.PreviewView
-        android:id="@+id/viewFinder"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CameraActivity" >
+        tools:context=".CameraActivity">
 
-    </androidx.camera.view.PreviewView>
+        <androidx.camera.view.PreviewView
+            android:id="@+id/viewFinder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".CameraActivity">
 
-    <SurfaceView
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/viewFinder"
-        app:layout_constraintEnd_toEndOf="@id/viewFinder"
-        app:layout_constraintBottom_toBottomOf="@id/viewFinder"
-        app:layout_constraintTop_toTopOf="@id/viewFinder" />
+        </androidx.camera.view.PreviewView>
 
-    <TextView
-        android:id="@+id/scannedText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="250dp"
-        android:gravity="center"
-        android:text="@string/placeholder"
-        app:layout_constraintBottom_toBottomOf="@+id/viewFinder"
-        app:layout_constraintStart_toStartOf="@+id/viewFinder" />
+        <SurfaceView
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="@id/viewFinder"
+            app:layout_constraintEnd_toEndOf="@id/viewFinder"
+            app:layout_constraintBottom_toBottomOf="@id/viewFinder"
+            app:layout_constraintTop_toTopOf="@id/viewFinder" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/scannedText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="200dp"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:text="@string/placeholder"
+            app:layout_constraintBottom_toBottomOf="@+id/viewFinder"
+            app:layout_constraintStart_toStartOf="@+id/viewFinder" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scanned_currency"
+            app:layout_constraintBaseline_toBaselineOf="@+id/scannedText"
+            app:layout_constraintEnd_toStartOf="@+id/scannedText" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="70dp"
+            android:text="@string/confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/viewFinder" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="70dp"
+            android:text="@string/cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/viewFinder"
+            app:layout_constraintStart_toEndOf="@+id/confirmButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

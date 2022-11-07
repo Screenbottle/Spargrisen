@@ -1,6 +1,7 @@
 package com.example.spargrisen
 
 import android.content.Context
+import android.graphics.RectF
 import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -11,7 +12,8 @@ import androidx.lifecycle.LifecycleOwner
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class CameraAdapter(onTextFound: (String) -> Unit) {
+class CameraAdapter(private val onTextFound: (String) -> Unit)
+{
     private val imageAnalyzerExecutor: ExecutorService by lazy { Executors.newSingleThreadExecutor() }
     private val imageAnalyzer by lazy {
         ImageAnalysis.Builder()
