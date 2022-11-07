@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.spargrisen.DatabaseController
 import com.example.spargrisen.R
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AASeries
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -43,6 +44,7 @@ class GraphFragment : Fragment() {
     lateinit var textTest: TextView
     lateinit var periodGraph: GraphView
     lateinit var yearGraph: AAChartView
+    lateinit var pieGraph: AAChartView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +56,6 @@ class GraphFragment : Fragment() {
 
     }
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,11 +66,14 @@ class GraphFragment : Fragment() {
         textTest = view.findViewById(R.id.textView6)
         periodGraph = view.findViewById(R.id.period_graph)
         yearGraph = view.findViewById(R.id.year_graph)
+        pieGraph = view.findViewById(R.id.categorygraph)
+
 
         auth = Firebase.auth
 
         populateGraph()
         graphYear()
+        pieChart()
 
         return view
     }
@@ -253,6 +257,32 @@ class GraphFragment : Fragment() {
                 year_graph.aa_drawChartWithChartModel(yearGraph)
         }
     }
+
+    fun pieChart() {
+        val db = FirebaseFirestore.getInstance()
+        val localPurchases: MutableList<DatabaseController.Purchases> = mutableListOf()
+
+        val pieChart: AAChartModel = AAChartModel()
+            .chartType(AAChartType.Pie)
+            .title("Expenses this year")
+            .dataLabelsEnabled(true)
+            .zoomType(AAChartZoomType.XY)
+            .series(
+                arrayOf(
+                    AASeriesElement()
+                        .data(arrayOf(
+                            arrayOf("Food", 100, 300, 400),
+                            arrayOf("Clothes", 200),
+                            arrayOf("Clothes", 200),
+                            arrayOf("Clothes", 200),
+                        ))
+                )
+
+            )
+
+        pieGraph.aa_drawChartWithChartModel(pieChart)
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
