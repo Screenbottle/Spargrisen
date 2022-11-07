@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun goToMainpage (){
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, GraphFragment::class.java)
         startActivity(intent)
     }
     fun goToSignupActivity() {

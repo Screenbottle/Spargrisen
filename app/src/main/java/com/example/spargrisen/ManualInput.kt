@@ -59,7 +59,7 @@ class ManualInput : AppCompatActivity() {
 
         val sendBtn = findViewById<Button>(R.id.sendBtn)
         val date = findViewById<CalendarView>(R.id.calendarView)
-        //val kategorival = resources.getStringArray(R.array.Kategorival)
+        //val kategorival = resources.getStringArray(R.array.Kategorival) fu
 
         checkBtn.setOnClickListener{
             val intent = Intent(this, HomeFragment::class.java)

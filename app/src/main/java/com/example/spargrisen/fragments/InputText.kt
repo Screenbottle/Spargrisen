@@ -10,5 +10,5 @@ data class InputText (
     var purchaseCategory : String? = null,
     var purchaseCost :  Double = 0.00,
     var purchaseDate : String? = null,
-   var kategorival : ArrayList<Spinner>
+   var kategorival : ArrayList<Spinner> // fel??
 )

@@ -38,7 +38,7 @@ class MyAdapter (val inputList: ArrayList<InputText>):
         holder.tvPurchaseCategory.text = inputList[position].purchaseCategory
         holder.tvPurchasePrice.text = inputList[position].purchaseCost.toString()
         holder.tvPurchaseDate.text = inputList[position].purchaseDate
-       // holder.tvKategorival.text = inputList[position].kategorival.toString()
+       // holder.tvKategorival.text = inputList[position].kategorival.toString() //l
 
     }
 

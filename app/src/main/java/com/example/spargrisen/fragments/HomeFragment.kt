@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : Fragment() {
 
-
     lateinit var  recyclerView: RecyclerView
     lateinit var inputList : ArrayList<InputText>
     var db = Firebase.firestore
@@ -100,11 +99,7 @@ class HomeFragment : Fragment() {
 
             }
 
-
-
         }
-
-
 
         db = FirebaseFirestore.getInstance()
 
