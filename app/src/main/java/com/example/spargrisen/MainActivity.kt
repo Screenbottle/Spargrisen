@@ -4,7 +4,7 @@ package com.example.spargrisen
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.spargrisen.databinding.ActivityGraphAndTableBinding
+import com.example.spargrisen.databinding.ActivityHomeBinding
 import com.example.spargrisen.fragments.CameraFragment
 import com.example.spargrisen.fragments.GraphFragment
 import com.example.spargrisen.fragments.HomeFragment
@@ -24,11 +24,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            setContentView(R.layout.activity_graph_and_table)
-            val viewbinding = ActivityGraphAndTableBinding.inflate(layoutInflater)
+            setContentView(R.layout.activity_home)
+
+            val viewbinding = ActivityHomeBinding.inflate(layoutInflater)
 
             setContentView(viewbinding.root)
-            replaceFragment(GraphFragment())
+            replaceFragment(HomeFragment())
             viewbinding.bottomNavigation.setOnItemSelectedListener {
 
                 when (it.itemId) {

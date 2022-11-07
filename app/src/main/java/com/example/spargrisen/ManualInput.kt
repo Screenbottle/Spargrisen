@@ -2,16 +2,16 @@ package com.example.spargrisen
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.spargrisen.fragments.GraphFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.spargrisen.fragments.HomeFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_manual_input.*
 
 class ManualInput : AppCompatActivity() {
     lateinit var itemText : EditText
@@ -36,13 +36,14 @@ class ManualInput : AppCompatActivity() {
                 android.R.layout.simple_spinner_item, kategorival)
             spinner.adapter = adapter
 
+
             spinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>,
                                             view: View, position: Int, id: Long) {
-                    Toast.makeText(this@ManualInput,
-                        getString(R.string.selected_item) + " " +
-                                "" + kategorival[position], Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@ManualInput,
+//                        getString(R.string.selected_item) + " " +
+//                                "" + kategorival[position], Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -68,8 +69,8 @@ class ManualInput : AppCompatActivity() {
             val txtItemText = itemText.text.toString().trim()
             val txtPriceText = priceText.text.toString().trim()
             val txtItemCategory = itemCategory.text.toString().trim()
-            val sdate = date.date.toString() / ändras
-           // val skategorival = kategorival.size.toString() // list alt följer inte med till firebase 
+            val sdate = date.date.toString() // ändras
+           // val skategorival = kategorival.size.toString() // list alt följer inte med till firebase
 
             val inputList = hashMapOf(
 
@@ -96,6 +97,10 @@ class ManualInput : AppCompatActivity() {
 
 
         }
+        setContentView(R.layout.activity_manual_input)
+
+
+        backToHomeBtn.setOnClickListener({startActivity(Intent(this, MainActivity::class.java)) })
     }
     fun getUID() : String {
         val auth = Firebase.auth
