@@ -29,8 +29,6 @@ class CameraActivity : AppCompatActivity() {
 
         viewBinding = ActivityCameraBinding.inflate(layoutInflater)
 
-
-
         if (isAllPermissionsGranted) startCamera() else requestPermissions()
 
         overlay.apply {
@@ -64,9 +62,10 @@ class CameraActivity : AppCompatActivity() {
 
         viewBinding.confirmButton.setOnClickListener {
             var text = viewBinding.scannedText.text.toString()
+            // replaces any , with . so that the text can be converted from a string into a double
             if (!text.equals(R.string.placeholder.toString(), true)) {
                 text = text.replace(",", ".")
-                val scannedFloat = text.toFloat()
+                val scannedFloat = text.toDouble()
             }
         }
 
@@ -92,11 +91,13 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun setScannedText(scannedText: String) {
+        // this function is passed to the camera adapter and then to the image analyzer, and then to
+        // the text recognizer, it simply places the scanned text into a view
         val textView = findViewById<TextView>(R.id.scannedText)
         textView.text = scannedText
     }
 
-
+    // draws the rectangle overlay
     private fun drawOverlay(
         holder: SurfaceHolder,
         heightCropPercent: Int,
@@ -147,6 +148,7 @@ class CameraActivity : AppCompatActivity() {
         holder.unlockCanvasAndPost(canvas)
     }
 
+    // activity needs permission in order to use the camera, requests them from the user if it's not already given
     private fun requestPermissions() = ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

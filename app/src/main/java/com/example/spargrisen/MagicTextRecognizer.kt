@@ -40,6 +40,7 @@ class MagicTextRecognizer(private val onTextFound: (String) -> Unit)  {
             if (it.isNotBlank()) {
                 val matcher = pattern.matcher(it)
                 if (matcher.find()) {
+                    // displays the scanned number to the user with the function that was passed along as a constructor
                     Log.d(TAG, "TextRecognizer: ${matcher.group(1)}")
                     matcher.group(0)?.let { it1 -> onTextFound(it1) }
                 }
