@@ -1,7 +1,9 @@
 package com.example.spargrisen.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.print.PrintManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.spargrisen.DatabaseController
+import com.example.spargrisen.MyPrintDocumentAdapter
 import com.example.spargrisen.R
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.google.firebase.auth.FirebaseAuth
@@ -252,6 +255,20 @@ class GraphFragment : Fragment() {
 
                 year_graph.aa_drawChartWithChartModel(yearGraph)
         }
+    }
+
+    private fun doPrint() {
+        activity?.also { context ->
+            // Get a PrintManager instance
+            val printManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
+            // Set job name, which will be displayed in the print queue
+            val jobName = "${context.getString(R.string.app_name)} Document"
+            // Start a print job, passing in a PrintDocumentAdapter implementation
+            // to handle the generation of a print document
+            printManager.print(jobName, MyPrintDocumentAdapter(context), null)
+
+        }
+
     }
     companion object {
         /**
