@@ -30,6 +30,7 @@ class ManualInput : AppCompatActivity() {
 
         val kategorival = resources.getStringArray(R.array.Kategorival)
 
+
         val spinner = findViewById<Spinner>(R.id.spinner)
         if (spinner != null) {
             val adapter = ArrayAdapter(this,

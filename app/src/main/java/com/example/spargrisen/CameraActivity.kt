@@ -66,6 +66,9 @@ class CameraActivity : AppCompatActivity() {
             if (!text.equals(R.string.placeholder.toString(), true)) {
                 text = text.replace(",", ".")
                 val scannedFloat = text.toDouble()
+                val intent = Intent(this, ManualInput::class.java)
+                intent.putExtra("ScannedMoney", scannedFloat)
+                startActivity(intent)
             }
         }
 
@@ -73,7 +76,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
 
-    private val cameraAdapter = CameraAdapter { it: String ->
+    private val cameraAdapter = CameraAdapter {
         setScannedText(it)
     }
 
@@ -169,6 +172,11 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun startCamera() = cameraAdapter.startCamera(this, this, viewFinder.surfaceProvider)
+
+    override fun onRestart() {
+        super.onRestart()
+        finish()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
