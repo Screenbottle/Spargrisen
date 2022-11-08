@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
 
         db = FirebaseFirestore.getInstance()
 
-        db.collection("users").document(getUID()).collection("values").get() // ska vara itemList ist för values
+        db.collection("users").document(getUID()).collection("itemList").get() // ska vara itemList ist för values
             .addOnSuccessListener {
                 if (!it.isEmpty){
                     for (data in it.documents){

@@ -20,7 +20,7 @@ class MyAdapter (val inputList: ArrayList<InputText>):
         val tvPurchaseName: TextView = itemView.findViewById(R.id.purchaseName)
         val tvPurchaseCategory: TextView = itemView.findViewById(R.id.purchaseCategory)
         val tvPurchasePrice: TextView = itemView.findViewById(R.id.price)
-        val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
+        //val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
         //val tvKategorival: TextView = itemView.findViewById(R.id.spinnerC)
 
 
@@ -37,7 +37,7 @@ class MyAdapter (val inputList: ArrayList<InputText>):
         holder.tvPurchaseName.text = inputList[position].purchaseName
         holder.tvPurchaseCategory.text = inputList[position].purchaseCategory
         holder.tvPurchasePrice.text = inputList[position].purchaseCost.toString()
-        holder.tvPurchaseDate.text = inputList[position].purchaseDate
+       // holder.tvPurchaseDate.text = inputList[position].purchaseDate
        // holder.tvKategorival.text = inputList[position].kategorival.toString() //l
 
     }

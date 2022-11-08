@@ -105,7 +105,9 @@ class GraphFragment : Fragment() {
                 var graphArray: Array<DataPoint>
 
                 for (i in localPurchaseList.indices) {
-                    graphList.add(i, DP(getDay(localPurchaseList[i].purchaseDateString), localPurchaseList[i].purchaseCost))
+                    graphList.add(i, DP(getDay(localPurchaseList[i].purchaseDateString),
+                        localPurchaseList[i].purchaseCost.toLong()
+                    ))
                 }
                 graphArray = graphList.sortedBy { it.x }.toTypedArray()
 
@@ -117,144 +119,144 @@ class GraphFragment : Fragment() {
     }
 
     fun graphYear() {
-            val db = FirebaseFirestore.getInstance()
-            val localPurchases: MutableList<DatabaseController.Purchases> = mutableListOf()
+        val db = FirebaseFirestore.getInstance()
+        val localPurchases: MutableList<DatabaseController.Purchases> = mutableListOf()
 
-            var janCost: Long = 0
-            var febCost: Long = 0
-            var marCost: Long = 0
-            var aprCost: Long = 0
-            var mayCost: Long = 0
-            var junCost: Long = 0
-            var julCost: Long = 0
-            var augCost: Long = 0
-            var sepCost: Long = 0
-            var octCost: Long = 0
-            var novCost: Long = 0
-            var decCost: Long = 0
+        var janCost: Long = 0
+        var febCost: Long = 0
+        var marCost: Long = 0
+        var aprCost: Long = 0
+        var mayCost: Long = 0
+        var junCost: Long = 0
+        var julCost: Long = 0
+        var augCost: Long = 0
+        var sepCost: Long = 0
+        var octCost: Long = 0
+        var novCost: Long = 0
+        var decCost: Long = 0
 
-            var graphList: ArrayList<DataPoint> = ArrayList()
+        var graphList: ArrayList<DataPoint> = ArrayList()
 
-            // TODO: Add year in query
-            val query =
-                FirebaseFirestore.getInstance().collection("users").document(dbController.getUID())
-                    .collection("values")
+        // TODO: Add year in query
+        val query =
+            FirebaseFirestore.getInstance().collection("users").document(dbController.getUID())
+                .collection("values")
 
-            query.addSnapshotListener { snapshot, e ->
-                snapshot?.documents?.forEach { document ->
-                    localPurchases.add(document.toObject(DatabaseController.Purchases::class.java)!!)
-                }
-                for (i in localPurchases.indices) {
+        query.addSnapshotListener { snapshot, e ->
+            snapshot?.documents?.forEach { document ->
+                localPurchases.add(document.toObject(DatabaseController.Purchases::class.java)!!)
+            }
+            for (i in localPurchases.indices) {
 
-                    when (getMonth(localPurchases[i].purchaseDateString)) {
-                        1 -> {
-                            Log.d("January", localPurchases[i].purchaseDateString)
-                            janCost += localPurchases[i].purchaseCost
-                        }
-                        2 -> {
-                            Log.d("February", localPurchases[i].purchaseDateString)
-                            febCost += localPurchases[i].purchaseCost
-                        }
+                when (getMonth(localPurchases[i].purchaseDateString)) {
+                    1 -> {
+                        Log.d("January", localPurchases[i].purchaseDateString)
+                        janCost += localPurchases[i].purchaseCost
+                    }
+                    2 -> {
+                        Log.d("February", localPurchases[i].purchaseDateString)
+                        febCost += localPurchases[i].purchaseCost
+                    }
 
-                        3 -> {
-                            Log.d("March", localPurchases[i].purchaseDateString)
-                            marCost += localPurchases[i].purchaseCost
-                        }
+                    3 -> {
+                        Log.d("March", localPurchases[i].purchaseDateString)
+                        marCost += localPurchases[i].purchaseCost
+                    }
 
-                        4 -> {
-                            Log.d("April", localPurchases[i].purchaseDateString)
-                            aprCost += localPurchases[i].purchaseCost
-                        }
+                    4 -> {
+                        Log.d("April", localPurchases[i].purchaseDateString)
+                        aprCost += localPurchases[i].purchaseCost
+                    }
 
-                        5 -> {
-                            Log.d("May", localPurchases[i].purchaseDateString)
-                            mayCost += localPurchases[i].purchaseCost
-                        }
+                    5 -> {
+                        Log.d("May", localPurchases[i].purchaseDateString)
+                        mayCost += localPurchases[i].purchaseCost
+                    }
 
-                        6 -> {
-                            Log.d("June", localPurchases[i].purchaseDateString)
-                            junCost += localPurchases[i].purchaseCost
-                        }
+                    6 -> {
+                        Log.d("June", localPurchases[i].purchaseDateString)
+                        junCost += localPurchases[i].purchaseCost
+                    }
 
-                        7 -> {
-                            Log.d("July", localPurchases[i].purchaseDateString)
-                            julCost += localPurchases[i].purchaseCost
-                        }
+                    7 -> {
+                        Log.d("July", localPurchases[i].purchaseDateString)
+                        julCost += localPurchases[i].purchaseCost
+                    }
 
-                        8 -> {
-                            Log.d("August", localPurchases[i].purchaseDateString)
-                            augCost += localPurchases[i].purchaseCost
-                        }
+                    8 -> {
+                        Log.d("August", localPurchases[i].purchaseDateString)
+                        augCost += localPurchases[i].purchaseCost
+                    }
 
-                        9 -> {
-                            Log.d("September", localPurchases[i].purchaseDateString)
-                            sepCost += localPurchases[i].purchaseCost
-                        }
+                    9 -> {
+                        Log.d("September", localPurchases[i].purchaseDateString)
+                        sepCost += localPurchases[i].purchaseCost
+                    }
 
-                        10 -> {
-                            Log.d("October", localPurchases[i].purchaseDateString)
-                            octCost += localPurchases[i].purchaseCost
-                        }
+                    10 -> {
+                        Log.d("October", localPurchases[i].purchaseDateString)
+                        octCost += localPurchases[i].purchaseCost
+                    }
 
-                        11 -> {
-                            Log.d("November", localPurchases[i].purchaseDateString)
-                            novCost += localPurchases[i].purchaseCost
-                        }
+                    11 -> {
+                        Log.d("November", localPurchases[i].purchaseDateString)
+                        novCost += localPurchases[i].purchaseCost
+                    }
 
-                        12 -> {
-                            Log.d("December", localPurchases[i].purchaseDateString)
-                            decCost += localPurchases[i].purchaseCost
-                        }
+                    12 -> {
+                        Log.d("December", localPurchases[i].purchaseDateString)
+                        decCost += localPurchases[i].purchaseCost
                     }
                 }
+            }
 
-                val yearGraph: AAChartModel = AAChartModel()
-                    .chartType(AAChartType.Column)
-                    .title("Expenses this year")
-                    .dataLabelsEnabled(true)
-                    .zoomType(AAChartZoomType.XY)
-                    .series(
-                        arrayOf(
-                            AASeriesElement()
-                                .name("January")
-                                .data(arrayOf(janCost)),
-                            AASeriesElement()
-                                .name("February")
-                                .data(arrayOf(febCost)),
-                            AASeriesElement()
-                                .name("March")
-                                .data(arrayOf(marCost)),
-                            AASeriesElement()
-                                .name("April")
-                                .data(arrayOf(aprCost)),
-                            AASeriesElement()
-                                .name("May")
-                                .data(arrayOf(mayCost)),
-                            AASeriesElement()
-                                .name("June")
-                                .data(arrayOf(junCost)),
-                            AASeriesElement()
-                                .name("July")
-                                .data(arrayOf(julCost)),
-                            AASeriesElement()
-                                .name("Augusti")
-                                .data(arrayOf(augCost)),
-                            AASeriesElement()
-                                .name("September")
-                                .data(arrayOf(sepCost)),
-                            AASeriesElement()
-                                .name("October")
-                                .data(arrayOf(octCost)),
-                            AASeriesElement()
-                                .name("November")
-                                .data(arrayOf(novCost)),
-                            AASeriesElement()
-                                .name("December")
-                                .data(arrayOf(decCost)),
-                        )
+            val yearGraph: AAChartModel = AAChartModel()
+                .chartType(AAChartType.Column)
+                .title("Expenses this year")
+                .dataLabelsEnabled(true)
+                .zoomType(AAChartZoomType.XY)
+                .series(
+                    arrayOf(
+                        AASeriesElement()
+                            .name("January")
+                            .data(arrayOf(janCost)),
+                        AASeriesElement()
+                            .name("February")
+                            .data(arrayOf(febCost)),
+                        AASeriesElement()
+                            .name("March")
+                            .data(arrayOf(marCost)),
+                        AASeriesElement()
+                            .name("April")
+                            .data(arrayOf(aprCost)),
+                        AASeriesElement()
+                            .name("May")
+                            .data(arrayOf(mayCost)),
+                        AASeriesElement()
+                            .name("June")
+                            .data(arrayOf(junCost)),
+                        AASeriesElement()
+                            .name("July")
+                            .data(arrayOf(julCost)),
+                        AASeriesElement()
+                            .name("Augusti")
+                            .data(arrayOf(augCost)),
+                        AASeriesElement()
+                            .name("September")
+                            .data(arrayOf(sepCost)),
+                        AASeriesElement()
+                            .name("October")
+                            .data(arrayOf(octCost)),
+                        AASeriesElement()
+                            .name("November")
+                            .data(arrayOf(novCost)),
+                        AASeriesElement()
+                            .name("December")
+                            .data(arrayOf(decCost)),
                     )
+                )
 
-                year_graph.aa_drawChartWithChartModel(yearGraph)
+            year_graph.aa_drawChartWithChartModel(yearGraph)
         }
     }
 
