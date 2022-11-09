@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
 
+
         if (auth.currentUser == null) {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -37,11 +38,12 @@ class MainActivity : AppCompatActivity() {
 
 
         setContentView(R.layout.activity_navbar)
-            val viewbinding = ActivityNavbarBinding.inflate(layoutInflater)
 
-            setContentView(viewbinding.root)
-            replaceFragment(GraphFragment())
-            viewbinding.bottomNavigation.setOnItemSelectedListener {
+        val viewbinding = ActivityNavbarBinding.inflate(layoutInflater)
+
+        setContentView(viewbinding.root)
+        replaceFragment(GraphFragment())
+        viewbinding.bottomNavigation.setOnItemSelectedListener {
 
                 when (it.itemId) {
                     R.id.ic_graph -> replaceFragment(GraphFragment())

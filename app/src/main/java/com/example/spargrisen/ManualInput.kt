@@ -32,6 +32,7 @@ class ManualInput : AppCompatActivity() {
 
 
 
+
         val itemText = findViewById<EditText>(R.id.itemText)
         val itemCategory = findViewById<EditText>(R.id.itemCategory)
         val priceText = findViewById<EditText>(R.id.priceText)

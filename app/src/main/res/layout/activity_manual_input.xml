@@ -26,14 +26,14 @@
         android:hint="Belopp"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.607"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemText" />
 
     <EditText
         android:id="@+id/itemCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
         android:layout_margin="30dp"
         android:ems="10"
         android:hint="Kategori"
@@ -55,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceText"
         app:layout_constraintVertical_bias="0.203" />
+
 
     <Button
         android:id="@+id/sendBtn"

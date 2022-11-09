@@ -1,15 +1,15 @@
 package com.example.spargrisen
 
 
-import android.graphics.Bitmap
+
 import android.media.Image
 import android.util.Log
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import java.util.regex.Pattern
-import java.util.regex.Pattern.MULTILINE
+
+import java.util.regex.Pattern.*
 
 class MagicTextRecognizer(private val onTextFound: (String) -> Unit)  {
 
@@ -29,19 +29,24 @@ class MagicTextRecognizer(private val onTextFound: (String) -> Unit)  {
     }
 
     private fun processTextFromImage(text: Text) {
-        val regex = Pattern.compile("\$?(?:(?:[1-9][0-9]{0,2})(?:,[0-9]{3})+|[1-9][0-9]*|0)(?:[.,][0-9][0-9]?)?(?![0-9]+)", MULTILINE)
+
+        //Regex magic that extracts the important numbers
+        val regex = "(?<=^TOTAL\\,|TOTALT\\,|ATT BETALA\\,|SUMMA\\,|ARTIKLAR\\)\\,)\\s*(\\d+\\,?\\d*)"
+
+        val pattern = compile(regex, MULTILINE)
+
 
         text.textBlocks.joinToString {
             it.text.lines().joinToString(" ")
         }.let {
             if (it.isNotBlank()) {
 
-                //val matcher = regex.matcher(it)
-                //if (matcher.find()) {
-                //    matcher.
-                //}
-                Log.d(TAG, "TextRecognizer: $it")
-                onTextFound(it)
+                val matcher = pattern.matcher(it)
+                if (matcher.find()) {
+                    // displays the scanned number to the user with the function that was passed along as a constructor
+                    Log.d(TAG, "TextRecognizer: ${matcher.group(1)}")
+                    matcher.group(0)?.let { it1 -> onTextFound(it1) }
+                }
             }
         }
     }
