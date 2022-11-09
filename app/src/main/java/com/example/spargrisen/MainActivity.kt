@@ -20,12 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var auth: FirebaseAuth //remove
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        auth = Firebase.auth // remove
 
         auth = Firebase.auth
 
@@ -34,17 +30,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-
-
-        if (auth.currentUser == null) {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-            finish()
-        } //else {
-
-
-
 
         setContentView(R.layout.activity_navbar)
 

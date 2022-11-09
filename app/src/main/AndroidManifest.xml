@@ -17,10 +17,6 @@
         android:theme="@style/Theme.Spargrisen"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
-            android:exported="false">
-        </activity>
-        <activity
             android:name=".ManualInput"
             android:exported="false">
             <meta-data
