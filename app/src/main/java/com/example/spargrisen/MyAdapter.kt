@@ -19,10 +19,10 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
         lateinit var db: FirebaseFirestore
 
-        val tvPurchaseName: TextView = itemView.findViewById(R.id.purchaseName)
+        val tvPurchaseItem: TextView = itemView.findViewById(R.id.purchaseItem)
         val tvPurchaseCategory: TextView = itemView.findViewById(R.id.purchaseCategory)
-        val tvPurchasePrice: TextView = itemView.findViewById(R.id.price)
-        //val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
+        val tvPurchaseCost: TextView = itemView.findViewById(R.id.purchaseCost)
+        val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
         //val tvKategorival: TextView = itemView.findViewById(R.id.spinnerC)
 
 
@@ -36,24 +36,24 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.tvPurchaseName.text = inputList[position].purchaseName
+        holder.tvPurchaseItem.text = inputList[position].purchaseItem
         holder.tvPurchaseCategory.text = inputList[position].purchaseCategory
-        holder.tvPurchasePrice.text = inputList[position].purchaseCost.toString()
-       // holder.tvPurchaseDate.text = inputList[position].purchaseDate
+        holder.tvPurchaseCost.text = inputList[position].purchaseCost.toString()
+        holder.tvPurchaseDate.text = inputList[position].purchaseDate
        // holder.tvKategorival.text = inputList[position].kategorival.toString() //l
 
-    //    val inputText = inputList[position]
-    //    val context = holder.tvPurchasePrice.context
+       // val inputText = inputList[position]
+        //val context = holder.tvPurchasePrice.context
 
-   //     if(inputText.purchaseCost!! >= 0){
-   //           holder.tvPurchasePrice.text = "+ $%.2f".format(inputText.purchaseCost)
- //             holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.green))
-  //        }else {
-   //          holder.tvPurchasePrice.text = "- $%.2f".format(Math.abs(inputText.purchaseCost!!))
-   //           holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.red))
-    //      }
+        //if(inputText.purchaseCost!! >= 0){
+          //  holder.tvPurchasePrice.text = "+ $%.2f".format(inputText.purchaseCost)
+            //holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.green))
+        //}else {
+          //  holder.tvPurchasePrice.text = "- $%.2f".format(Math.abs(inputText.purchaseCost!!))
+            //holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.red))
+        //}
 
-    //      holder.tvPurchaseName.text = inputText.purchaseName
+        //holder.tvPurchaseName.text = inputText.purchaseName
     }
 
     override fun getItemCount(): Int {

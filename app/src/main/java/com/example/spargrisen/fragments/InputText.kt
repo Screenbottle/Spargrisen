@@ -6,7 +6,7 @@ import com.google.firebase.firestore.DocumentId
 
 data class InputText (
    @DocumentId var documentId: String? = null,
-    var purchaseName : String? = null,
+    var purchaseItem : String? = null,
     var purchaseCategory : String? = null,
     var purchaseCost :  Long? = null,
     var purchaseDate : String? = null,

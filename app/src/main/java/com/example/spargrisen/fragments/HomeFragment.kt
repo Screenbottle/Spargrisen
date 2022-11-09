@@ -137,10 +137,9 @@ fun fetchData() {
 
     fun updateAmount() {
 
-        val totalAmount = inputList.map { it.purchaseCost!! }.sum()
+      //  val totalAmount = inputList.map { it.purchaseCost!! }.sum()
 
         // val budgetAmount = inputList.filter { it.purchaseCost!! >0 }.map{it.purchaseCost}.sum()
-
         //val expenseAmount = totalAmount - budgetAmount
 
     }

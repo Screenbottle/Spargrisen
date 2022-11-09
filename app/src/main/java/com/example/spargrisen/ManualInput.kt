@@ -5,15 +5,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
-import com.example.spargrisen.fragments.GraphFragment
 import com.example.spargrisen.fragments.HomeFragment
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.type.Date
 
 class ManualInput : AppCompatActivity() {
     lateinit var itemText : EditText
@@ -33,14 +30,16 @@ class ManualInput : AppCompatActivity() {
 
 
 
-        val itemText = findViewById<EditText>(R.id.itemText)
-        val itemCategory = findViewById<EditText>(R.id.itemCategory)
-        val priceText = findViewById<EditText>(R.id.priceText)
+        val purchaseItem = findViewById<EditText>(R.id.purchaseItem)
+        val purchaseCategory = findViewById<EditText>(R.id.purchaseCategory)
+       val purchasesCost = findViewById<EditText>(R.id.purchaseCost)
+        //val purchaseDate = findViewById<TextView>(R.id.purchaseDate)
 
 
         val checkBtn = findViewById<Button>(R.id.checkBtn)
         val sendBtn = findViewById<Button>(R.id.sendBtn)
-        //val date = findViewById<CalendarView>(R.id.calendarView)
+        val date = findViewById<CalendarView>(R.id.calendarView)
+
 
 
         checkBtn.setOnClickListener{
@@ -58,16 +57,18 @@ class ManualInput : AppCompatActivity() {
 
                 else {
 
-                    val txtItemText = itemText.text.toString().trim()
-                    val txtPriceText = priceText.text.toString().trim()
-                    val txtItemCategory = itemCategory.text.toString().trim()
+                    val tvPurchaseItem =  purchaseItem.text.toString().trim()
+                    val   tvPurchaseCategory = purchaseCategory.text.toString().trim()
+                    val   tvPurchasesCost= purchasesCost.text.toString().trim()
+
+                   // val purchaceDate = date.text.toString()
 
 
                     val inputList = hashMapOf(
 
-                        "Item" to txtItemText,
-                        "Price" to txtPriceText,
-                        "itemCategory" to txtItemCategory,
+                        "Item" to tvPurchaseItem,
+                      "Price" to tvPurchasesCost,
+                        "itemCategory" to tvPurchaseCategory,
                         // "kategorival" to skategorival,
                         "Date" to Timestamp(java.util.Date()),
 
@@ -79,7 +80,7 @@ class ManualInput : AppCompatActivity() {
                             Log.d("DB", "Input added")
 
                             itemText.text.clear()
-                            priceText.text.clear()
+                           // priceText.text.clear()
                             itemCategory.text.clear()
 
                             //val intent = Intent(this, HomeFragment::class.java)
