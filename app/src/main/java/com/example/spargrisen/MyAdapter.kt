@@ -1,11 +1,13 @@
 package com.example.spargrisen
 
 import android.annotation.SuppressLint
+import android.graphics.Color.red
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spargrisen.fragments.InputText
 import com.google.firebase.firestore.FirebaseFirestore
@@ -40,6 +42,18 @@ class MyAdapter (val inputList: ArrayList<InputText>):
        // holder.tvPurchaseDate.text = inputList[position].purchaseDate
        // holder.tvKategorival.text = inputList[position].kategorival.toString() //l
 
+        val inputText = inputList[position]
+        val context = holder.tvPurchasePrice.context
+
+        if(inputText.purchaseCost!! >= 0){
+            holder.tvPurchasePrice.text = "+ $%.2f".format(inputText.purchaseCost)
+            holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.green))
+        }else {
+            holder.tvPurchasePrice.text = "- $%.2f".format(Math.abs(inputText.purchaseCost!!))
+            holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.red))
+        }
+
+        holder.tvPurchaseName.text = inputText.purchaseName
     }
 
     override fun getItemCount(): Int {

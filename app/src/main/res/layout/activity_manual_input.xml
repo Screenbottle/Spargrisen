@@ -24,7 +24,7 @@
         android:layout_marginTop="76dp"
         android:ems="10"
         android:hint="Belopp"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.607"
         app:layout_constraintStart_toStartOf="parent"
