@@ -42,18 +42,18 @@ class MyAdapter (val inputList: ArrayList<InputText>):
        // holder.tvPurchaseDate.text = inputList[position].purchaseDate
        // holder.tvKategorival.text = inputList[position].kategorival.toString() //l
 
-        val inputText = inputList[position]
-        val context = holder.tvPurchasePrice.context
+    //    val inputText = inputList[position]
+    //    val context = holder.tvPurchasePrice.context
 
-        if(inputText.purchaseCost!! >= 0){
-            holder.tvPurchasePrice.text = "+ $%.2f".format(inputText.purchaseCost)
-            holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.green))
-        }else {
-            holder.tvPurchasePrice.text = "- $%.2f".format(Math.abs(inputText.purchaseCost!!))
-            holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.red))
-        }
+   //     if(inputText.purchaseCost!! >= 0){
+   //           holder.tvPurchasePrice.text = "+ $%.2f".format(inputText.purchaseCost)
+ //             holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.green))
+  //        }else {
+   //          holder.tvPurchasePrice.text = "- $%.2f".format(Math.abs(inputText.purchaseCost!!))
+   //           holder.tvPurchasePrice.setTextColor(ContextCompat.getColor(context, R.color.red))
+    //      }
 
-        holder.tvPurchaseName.text = inputText.purchaseName
+    //      holder.tvPurchaseName.text = inputText.purchaseName
     }
 
     override fun getItemCount(): Int {
