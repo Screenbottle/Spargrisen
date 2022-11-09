@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
 
         db = FirebaseFirestore.getInstance()
 
-        db.collection("users").document(getUID()).collection("values").get() // ska vara itemList ist för values
+        db.collection("users").document(getUID()).collection("itemList").get() // ska vara itemList ist för values
             .addOnSuccessListener {
                 if (!it.isEmpty){
                     for (data in it.documents){
@@ -112,7 +112,9 @@ class HomeFragment : Fragment() {
                             inputList.add(inputText)
                         }
                     }
+
                     recyclerView.adapter = MyAdapter(inputList)
+
                 }
             }
 
@@ -133,7 +135,15 @@ fun fetchData() {
 
 }
 
+    fun updateAmount() {
 
+        val totalAmount = inputList.map { it.purchaseCost!! }.sum()
+
+        // val budgetAmount = inputList.filter { it.purchaseCost!! >0 }.map{it.purchaseCost}.sum()
+
+        //val expenseAmount = totalAmount - budgetAmount
+
+    }
 }
 
 

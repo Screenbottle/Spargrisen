@@ -8,7 +8,7 @@ data class InputText (
    @DocumentId var documentId: String? = null,
     var purchaseName : String? = null,
     var purchaseCategory : String? = null,
-    var purchaseCost :  Double = 0.00,
+    var purchaseCost :  Long? = null,
     var purchaseDate : String? = null,
-   var kategorival : ArrayList<Spinner> // fel??
+
 )
