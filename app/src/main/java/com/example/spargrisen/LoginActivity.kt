@@ -46,9 +46,9 @@ class LoginActivity : AppCompatActivity() {
 
         if (auth.currentUser != null) {
             Log.d("!!!", "${auth.currentUser?.email}")
-            goToMainpage()
+         goToMainpage()
         }
-        auth.signOut()
+       // auth.signOut()
     }
 
     fun goToMainpage (){

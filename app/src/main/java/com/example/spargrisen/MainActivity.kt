@@ -5,7 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.spargrisen.databinding.ActivityHomeBinding
+import com.example.spargrisen.databinding.ActivityNavbarBinding
+import com.example.spargrisen.fragments.CameraFragment
 import com.example.spargrisen.fragments.GraphFragment
 import com.example.spargrisen.fragments.HomeFragment
 import com.example.spargrisen.fragments.SettingsFragment
@@ -17,6 +18,7 @@ var userID: Int = 0// Users ID
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var auth: FirebaseAuth //remove
 
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth // remove
 
+        auth = Firebase.auth
 
         if (auth.currentUser == null) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -34,19 +37,28 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            setContentView(R.layout.activity_home)
+        if (auth.currentUser == null) {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+            finish()
+        } //else {
 
-            val viewbinding = ActivityHomeBinding.inflate(layoutInflater)
 
-            setContentView(viewbinding.root)
-            replaceFragment(HomeFragment())
-            viewbinding.bottomNavigation.setOnItemSelectedListener {
+
+
+        setContentView(R.layout.activity_navbar)
+
+        val viewbinding = ActivityNavbarBinding.inflate(layoutInflater)
+
+        setContentView(viewbinding.root)
+        replaceFragment(GraphFragment())
+        viewbinding.bottomNavigation.setOnItemSelectedListener {
 
                 when (it.itemId) {
                     R.id.ic_graph -> replaceFragment(GraphFragment())
                     R.id.ic_home -> replaceFragment(HomeFragment())
                     R.id.ic_settings -> replaceFragment(SettingsFragment())
-
+                  //  R.id.ic_camera -> replaceFragment(CameraFragment())
 
 
                 }
