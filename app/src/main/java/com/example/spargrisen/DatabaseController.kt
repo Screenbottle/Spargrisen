@@ -31,8 +31,8 @@ class DatabaseController {
 
     data class Purchases(
         var purchaseName : String = "",
-        var purchaseAmount : Long = 0,
         var purchaseCost : Long = 0,
+        var purchaseCategory : String = "",
         var purchaseDate : Long = 0,
         var purchaseDateString : String = "",
     )
@@ -45,7 +45,7 @@ class DatabaseController {
 
 
     val dbRef = FirebaseFirestore.getInstance().collection("users").document(getUID())
-        .collection("values")
+        .collection("itemList")
         //.whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2020")!!)
        // .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2023")!!)
 
@@ -122,19 +122,19 @@ class DatabaseController {
 
     // Use this to add input to the database
     // Example: addInputData("Burger king", 1, 363, "01/01/2003")
-    fun addInputData(purchaseName : String, purchaseAmount : Long, purchaseCost : Long, purchaseDate : String) { // purchaseDate = "DD/MM/YEAR"
+    fun addInputData(purchaseName : String, purchaseCost : Long, purchaseCategory: String, purchaseDate : String) { // purchaseDate = "DD/MM/YEAR"
         val db = FirebaseFirestore.getInstance()
 
         val purchaseDateToMillis = convertDateToMillis(purchaseDate) // Convert timestamp to millis so we can query it in firestore
 
         val inputData: MutableMap<Any, Any> = HashMap()
-        inputData["purchaseName"] = purchaseName
-        inputData["purchaseAmount"] = purchaseAmount
-        inputData["purchaseCost"] = purchaseCost
+        inputData["Item"] = purchaseName
+        inputData["Price"] = purchaseCost
+        inputData["Category"] = purchaseCategory
         inputData["purchaseDate"] = purchaseDateToMillis!!
         inputData["purchaseDateString"] = purchaseDate
 
-        val inputRef = db.collection("users").document(getUID()).collection("values").document()
+        val inputRef = db.collection("users").document(getUID()).collection("itemList").document()
 
         inputRef.set(inputData).addOnSuccessListener {
             Log.d("DB", "Input added")
@@ -162,17 +162,17 @@ class DatabaseController {
             runBlocking {
                 val itemsFromDb: List<Purchases> =
                     FirebaseFirestore.getInstance().collection("users").document(getUID())
-                        .collection("values")
+                        .collection("itemList")
                         .get()
                         .await()
                         .documents
                         .map { itemDocument ->
                             Purchases(
-                                purchaseName = itemDocument.getString("purchaseName")!!,
-                                purchaseAmount = itemDocument.getLong("purchaseAmount")!!,
-                                purchaseCost = itemDocument.getLong("purchaseCost")!!,
+                                purchaseName = itemDocument.getString("Item")!!,
+                                purchaseCost = itemDocument.getLong("Price")!!,
                                 purchaseDate = itemDocument.getLong("purchaseDate")!!,
                                 purchaseDateString = itemDocument.getString("purchaseDateString")!!,
+                                purchaseCategory = itemDocument.getString("Category")!!
                             )
                         }
                 purchasesList.addAll(itemsFromDb)
