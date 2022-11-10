@@ -1,7 +1,9 @@
 package com.example.spargrisen.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.print.PrintManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.spargrisen.DatabaseController
+import com.example.spargrisen.MyPrintDocumentAdapter
 import com.example.spargrisen.R
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AASeries
@@ -260,6 +263,7 @@ class GraphFragment : Fragment() {
         }
     }
 
+
     fun pieChart() {
         val db = FirebaseFirestore.getInstance()
         val localPurchases: MutableList<DatabaseController.Purchases> = mutableListOf()
@@ -284,6 +288,7 @@ class GraphFragment : Fragment() {
 
         pieGraph.aa_drawChartWithChartModel(pieChart)
     }
+
 
     companion object {
         /**
