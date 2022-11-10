@@ -1,6 +1,7 @@
 package com.example.spargrisen
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.type.Date
+import java.util.*
 
 class ManualInput : AppCompatActivity() {
     lateinit var itemText : EditText
@@ -40,8 +42,18 @@ class ManualInput : AppCompatActivity() {
 
         val checkBtn = findViewById<Button>(R.id.checkBtn)
         val sendBtn = findViewById<Button>(R.id.sendBtn)
-        //val date = findViewById<CalendarView>(R.id.calendarView)
+        val date = findViewById<DatePicker>(R.id.calendarView)
 
+        var purchaseDate: String = "" ?: "No date"
+
+        val today = Calendar.getInstance()
+        date.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+        ) { view, year, monthOfYear, dayOfMonth ->
+            val month = monthOfYear + 1
+            purchaseDate = "$dayOfMonth/$month/$year"
+            Log.d("Date", purchaseDate)
+        }
 
         checkBtn.setOnClickListener{
             val intent = Intent(this, HomeFragment::class.java)
@@ -62,7 +74,7 @@ class ManualInput : AppCompatActivity() {
                 val txtPriceText = priceText.text.toString().toLong()
                 val txtItemCategory = itemCategory.text.toString().trim()
 
-                DatabaseController().addInputData(txtItemText, txtPriceText, txtItemCategory, "10/11/2022")
+                DatabaseController().addInputData(txtItemText, txtPriceText, txtItemCategory, purchaseDate)
 
             }
         }
