@@ -23,19 +23,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         auth = Firebase.auth
 
-
-
         if (auth.currentUser == null) {
-            val intent = Intent(this, SignUpActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
-        } //else {
-
-
-
+        }
 
         setContentView(R.layout.activity_navbar)
 
