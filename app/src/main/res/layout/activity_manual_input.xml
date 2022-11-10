@@ -24,7 +24,7 @@
         android:layout_marginTop="76dp"
         android:ems="10"
         android:hint="Belopp"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,24 +44,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemText" />
 
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/priceText"
+        app:layout_constraintVertical_bias="0.203" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="360dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:entries="@array/Kategorival"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceText" />
 
     <Button
         android:id="@+id/sendBtn"

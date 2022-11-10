@@ -38,13 +38,7 @@
             android:textColor="#9A9292"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/spinnerC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SpinnerK"
-            android:textColor="#9A9292"
-            android:textSize="18sp" />
+
 
 
         <TextView
