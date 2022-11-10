@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -42,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         val signupBtn = findViewById<Button>(R.id.signupBtn)
-        signupBtn.setOnClickListener {
+        loginTV.setOnClickListener {
            goToSignupActivity()
         }
 
@@ -54,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun goToMainpage (){
-        val intent = Intent(this, HomeFragment::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
     fun goToSignupActivity() {
