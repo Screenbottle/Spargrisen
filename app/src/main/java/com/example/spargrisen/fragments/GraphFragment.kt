@@ -257,19 +257,7 @@ class GraphFragment : Fragment() {
         }
     }
 
-    private fun doPrint() {
-        activity?.also { context ->
-            // Get a PrintManager instance
-            val printManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
-            // Set job name, which will be displayed in the print queue
-            val jobName = "${context.getString(R.string.app_name)} Document"
-            // Start a print job, passing in a PrintDocumentAdapter implementation
-            // to handle the generation of a print document
-            printManager.print(jobName, MyPrintDocumentAdapter(context), null)
 
-        }
-
-    }
     companion object {
         /**
          * Use this factory method to create a new instance of

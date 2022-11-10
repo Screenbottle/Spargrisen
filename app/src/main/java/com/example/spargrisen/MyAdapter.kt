@@ -26,7 +26,6 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
       val itemView= LayoutInflater.from(parent.context).inflate(R.layout.category_list, parent, false)
         return MyViewHolder(itemView)
