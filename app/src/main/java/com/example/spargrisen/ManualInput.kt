@@ -50,13 +50,22 @@ class ManualInput : AppCompatActivity() {
         date.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
             today.get(Calendar.DAY_OF_MONTH)
         ) { view, year, monthOfYear, dayOfMonth ->
-            val month = monthOfYear + 1
-            purchaseDate = "$dayOfMonth/$month/$year"
+            var month : String = (monthOfYear + 1).toString()
+            var day = dayOfMonth.toString()
+
+            if (monthOfYear < 9) {
+                month = "0$month"
+            }
+            if(dayOfMonth < 10){
+                day = "0$dayOfMonth"
+            }
+
+            purchaseDate = "$day/$month/$year"
             Log.d("Date", purchaseDate)
         }
 
         checkBtn.setOnClickListener{
-            val intent = Intent(this, HomeFragment::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

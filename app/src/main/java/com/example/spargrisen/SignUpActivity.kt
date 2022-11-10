@@ -69,7 +69,7 @@ class SignUpActivity : AppCompatActivity() {
                     DatabaseController().registerUserToFirestore(inputFullname, inputEmail) // Also register user to Firestore
 
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this, HomeFragment::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     //val user = auth.currentUser
                     Toast.makeText(baseContext, "Du är nu inloggad.",
