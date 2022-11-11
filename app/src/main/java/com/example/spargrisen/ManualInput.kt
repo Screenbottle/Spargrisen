@@ -35,7 +35,6 @@ class ManualInput : AppCompatActivity() {
 
 
      val kategorival = resources.getStringArray(R.array.Kategorival)
-
      val spinner = findViewById<Spinner>(R.id.spinner)
      if (spinner != null) {
          val adapter = ArrayAdapter(this,
@@ -46,6 +45,7 @@ class ManualInput : AppCompatActivity() {
              AdapterView.OnItemSelectedListener {
              override fun onItemSelected(parent: AdapterView<*>,
                                          view: View, position: Int, id: Long) {
+
 
          currentKategori = getString(R.string.selected_item) + " " +
                                   "" + kategorival[position]
@@ -110,7 +110,6 @@ class ManualInput : AppCompatActivity() {
                 val txtItemCategory = currentKategori
 
                 DatabaseController().addInputData(txtItemText, txtPriceText, txtItemCategory, purchaseDate)
-
 
                 priceText.text.clear()
                 itemText.text.clear()

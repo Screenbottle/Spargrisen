@@ -24,9 +24,6 @@ class MyAdapter (val inputList: ArrayList<InputText>):
         val tvPurchasePrice: TextView = itemView.findViewById(R.id.price)
         val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
 
-
-
-
     }
 
     @SuppressLint("SuspiciousIndentation")
