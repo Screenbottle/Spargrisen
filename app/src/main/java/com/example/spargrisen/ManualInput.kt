@@ -26,6 +26,7 @@ class ManualInput : AppCompatActivity() {
     lateinit var sendBtn : Button
     lateinit var checkBtn : Button
     var db = Firebase.firestore
+    lateinit var currentKategori : String
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +34,35 @@ class ManualInput : AppCompatActivity() {
         setContentView(R.layout.activity_manual_input)
 
 
+     val kategorival = resources.getStringArray(R.array.Kategorival)
+
+     val spinner = findViewById<Spinner>(R.id.spinner)
+     if (spinner != null) {
+         val adapter = ArrayAdapter(this,
+             android.R.layout.simple_spinner_item, kategorival)
+         spinner.adapter = adapter
+
+         spinner.onItemSelectedListener = object :
+             AdapterView.OnItemSelectedListener {
+             override fun onItemSelected(parent: AdapterView<*>,
+                                         view: View, position: Int, id: Long) {
+
+         currentKategori = getString(R.string.selected_item) + " " +
+                                  "" + kategorival[position]
+
+            //    Toast.makeText(this@ManualInput,
+              //       getString(R.string.selected_item) + " " +
+                //             "" + kategorival[position], Toast.LENGTH_SHORT).show()
+             }
+
+             override fun onNothingSelected(parent: AdapterView<*>) {
+                 // write code to perform some action
+             }
+         }
+     }
 
 
         val itemText = findViewById<EditText>(R.id.itemText)
-        val itemCategory = findViewById<EditText>(R.id.itemCategory)
         val priceText = findViewById<EditText>(R.id.priceText)
 
 
@@ -70,7 +96,7 @@ class ManualInput : AppCompatActivity() {
         }
 
         sendBtn.setOnClickListener{
-            if(itemText.text.isEmpty() || itemCategory.text.isEmpty() || priceText.text.isEmpty() ) {
+            if(itemText.text.isEmpty()  || priceText.text.isEmpty() ) {
                 Toast.makeText(
                     this, "Fyll i alla fält.",
                     Toast.LENGTH_SHORT
@@ -81,9 +107,13 @@ class ManualInput : AppCompatActivity() {
 
                 val txtItemText = itemText.text.toString().trim()
                 val txtPriceText = priceText.text.toString().toLong()
-                val txtItemCategory = itemCategory.text.toString().trim()
+                val txtItemCategory = currentKategori
 
                 DatabaseController().addInputData(txtItemText, txtPriceText, txtItemCategory, purchaseDate)
+
+
+                priceText.text.clear()
+                itemText.text.clear()
 
             }
         }
