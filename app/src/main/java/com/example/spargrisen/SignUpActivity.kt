@@ -2,17 +2,13 @@ package com.example.spargrisen
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.spargrisen.fragments.GraphFragment
-import com.example.spargrisen.fragments.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
@@ -37,8 +33,8 @@ class SignUpActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
-        val registerBtn = findViewById<Button>(R.id.signupBtn)
-        registerBtn.setOnClickListener {
+        val signupBtn = findViewById<Button>(R.id.signupBtn)
+        signupBtn.setOnClickListener {
             registerUser()
         }
 
