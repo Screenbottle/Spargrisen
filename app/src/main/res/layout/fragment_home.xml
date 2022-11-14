@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Månad"
+                android:text="@string/total_m_nad"
                 android:textAllCaps="true"
                 android:textColor="#FF80AB"
                 android:textSize="20sp"
@@ -83,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Budget"
+                        android:text="@string/budget"
                         android:textAllCaps="true"
                         android:textSize="17sp" />
                 </LinearLayout>
@@ -107,7 +107,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UTGIFTER"
+                        android:text="@string/utgifter"
                         android:textAllCaps="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textSize="17sp" />
@@ -124,7 +124,7 @@
             android:layout_marginTop="12dp"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:text="TRANSAKTION"
+            android:text="@string/transaktion"
             android:textAllCaps="true"
             android:textSize="17sp"
             android:textStyle="bold" />

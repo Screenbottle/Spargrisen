@@ -3,15 +3,15 @@
     <item
         android:id="@+id/ic_graph"
         android:icon="@drawable/ic_baseline_auto_graph_24"
-        android:title="Graph"/>
+        android:title="@string/graph"/>
     <item
         android:id="@+id/ic_home"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home"/>
+        android:title="@string/home"/>
 
 
     <item
         android:id="@+id/ic_settings"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Settings"/>
+        android:title="@string/settings"/>
 </menu>

@@ -19,7 +19,7 @@
         android:drawableLeft="@drawable/fui_ic_anonymous_white_24dp"
         android:drawableTint="#FF80AB"
         android:ems="10"
-        android:hint="För och efternam"
+        android:hint="@string/f_r_och_efternam"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
         android:drawableLeft="@android:drawable/sym_action_email"
         android:drawableTint="#FF80AB"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +56,7 @@
         android:drawableLeft="@android:drawable/ic_lock_idle_lock"
         android:drawableTint="#FF80AB"
         android:ems="10"
-        android:hint="confirme password"
+        android:hint="@string/confirme_password"
         android:inputType="textShortMessage|textPersonName|textPassword"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
         android:layout_height="56dp"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="30dp"
-        android:text="Edit"
+        android:text="@string/edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -80,7 +80,7 @@
         android:layout_height="56dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
-        android:text="Log Out"
+        android:text="@string/log_out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
