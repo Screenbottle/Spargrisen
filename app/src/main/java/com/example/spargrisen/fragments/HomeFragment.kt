@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract.Data
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,17 +22,13 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_manual_input.*
 import kotlinx.android.synthetic.main.category_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
 
     lateinit var  recyclerView: RecyclerView
-    lateinit var inputList : ArrayList<InputText>
+
     var db = Firebase.firestore
     var isOpen = false
 
@@ -58,17 +55,34 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         //recyclerView.setHasFixedSize(true)
         //recyclerView.adapter = MyAdapter(inputList)
-        inputList = arrayListOf()
+        //inputList = arrayListOf()
 
         val addInputBtn = view.findViewById<FloatingActionButton>(R.id.addInputBtn)
         val addInputCameraBtn = view.findViewById<FloatingActionButton>(R.id.addInputCameraBtn)
         val addManualInputBtn = view.findViewById<FloatingActionButton>(R.id.addManualInputBtn)
 
         val expensesText = view.findViewById<TextView>(R.id.expense)
+        val bugetText = view.findViewById<TextView>(R.id.budget)
+        val totalText = view.findViewById<TextView>(R.id.balance)
 
+        //detect change in database
+        db.collection("users")
+            .document(dbController.getUID())
+            .addSnapshotListener { snapshot, e ->
+                var remainingBudget: Long = getRemainingBudget()
 
-        expensesText.text = dbController.getExpensesMonth("25/02/2022", "25/03/2022").toString()
+                expensesText.text = getExpensesMonth().toString()
+                bugetText.text = getBudgetMonth().toString()
+                totalText.text = remainingBudget.toString()
 
+                if (remainingBudget < 0) {
+                    totalText.setTextColor(resources.getColor(R.color.red))
+                } else {
+                    totalText.setTextColor(resources.getColor(R.color.green))
+                }
+
+                recyclerView.adapter = MyAdapter(DatabaseController().periodList)
+            }
 
         addInputBtn.setOnClickListener {
 //            val intent = Intent(requireContext(), LoginActivity::class.java)
@@ -108,23 +122,6 @@ class HomeFragment : Fragment() {
 
         }
 
-        db = FirebaseFirestore.getInstance()
-
-        db.collection("users").document(getUID()).collection("itemList").get() // ska vara itemList ist för values
-            .addOnSuccessListener {
-                if (!it.isEmpty){
-                    for (data in it.documents){
-                        val inputText : InputText? = data.toObject(InputText ::class.java)
-                        if (inputText != null) {
-                            inputList.add(inputText)
-                        }
-                    }
-
-                    recyclerView.adapter = MyAdapter(DatabaseController().purchasesList)
-
-                }
-            }
-
 
 
         return view
@@ -136,6 +133,34 @@ class HomeFragment : Fragment() {
 
         val uid : String = auth.uid.toString()
         return uid
+    }
+
+    fun getBudgetMonth(): Long {
+        var usersBudget: Long = 0
+
+        runBlocking {
+            usersBudget = db.collection("users").document(getUID())
+                .get()
+                .await()
+                .get("budget") as Long
+        }
+        return usersBudget
+    }
+
+    fun getExpensesMonth(): Long {
+        var totalCost: Long = 0
+
+        for (i in DatabaseController().periodList) {
+            totalCost += i.purchaseCost
+            Log.d("purchaseCost", i.purchaseName)
+        }
+        return totalCost
+    }
+
+    fun getRemainingBudget(): Long {
+        var remainingBudget = getBudgetMonth() - getExpensesMonth()
+
+        return remainingBudget
     }
 }
 

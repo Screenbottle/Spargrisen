@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.spargrisen.DatabaseController
 import com.example.spargrisen.R
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -168,31 +169,43 @@ class GraphFragment : Fragment() {
     }
 
     fun pieChart() {
-        val db = FirebaseFirestore.getInstance()
-        val localPurchases: MutableList<DatabaseController.Purchases> = mutableListOf()
+        var foodCost: Long = 0; var homeCost: Long = 0; var shoppingCost: Long = 0; var healthCost: Long = 0; var freeTimeCost: Long = 0; var transportCost: Long = 0; var gardenCost: Long = 0; var otherCost: Long = 0
+
+        //Put all purchases in the correct category
+        for (i in dbc.periodList.indices) {
+            when (dbc.periodList[i].purchaseCategory) {
+                " Mat/dryck" -> foodCost += dbc.periodList[i].purchaseCost
+                " Boende/hushåll" -> homeCost += dbc.periodList[i].purchaseCost
+                " Shopping" -> shoppingCost += dbc.periodList[i].purchaseCost
+                " Hälsa/skönhet" -> healthCost += dbc.periodList[i].purchaseCost
+                " Fritid" -> freeTimeCost += dbc.periodList[i].purchaseCost
+                " Transport" -> transportCost += dbc.periodList[i].purchaseCost
+                " Hem/trädgård" -> gardenCost += dbc.periodList[i].purchaseCost
+                " Övrigt" -> otherCost += dbc.periodList[i].purchaseCost
+            }
+        }
 
         val pieChart: AAChartModel = AAChartModel()
             .chartType(AAChartType.Pie)
-            .title("Expenses this period")
-            .dataLabelsEnabled(true)
-            .zoomType(AAChartZoomType.XY)
+            .title("Expenses this month")
+            .dataLabelsEnabled(false)
+            .colorsTheme(arrayOf("#FF0000", "#FFA500", "#FFFF00", "#008000", "#0000FF", "#4B0082", "#EE82EE", "#000000"))
             .series(
                 arrayOf(
                     AASeriesElement()
                         .data(arrayOf(
-                            arrayOf("Mat & Dryck", 100, 300, 400),
-                            arrayOf("Boende & Hushåll", 200),
-                            arrayOf("Shopping", 200),
-                            arrayOf("Hälsa & Skönhet", 200),
-                            arrayOf("Fritid", 200),
-                            arrayOf("Transport", 200),
-                            arrayOf("Hem & Trädgård", 200),
-                            arrayOf("Övrigt", 200),
+                            arrayOf("Mat/dryck", foodCost),
+                            arrayOf("Boende/hushåll", homeCost),
+                            arrayOf("Shopping", shoppingCost),
+                            arrayOf("Hälsa/skönhet", healthCost),
+                            arrayOf("Fritid", freeTimeCost),
+                            arrayOf("Transport", transportCost),
+                            arrayOf("Hem/trädgård", gardenCost),
+                            arrayOf("Övrigt", otherCost),
                         ))
                 )
 
             )
-
         pieGraph.aa_drawChartWithChartModel(pieChart)
     }
 

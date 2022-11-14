@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spargrisen.fragments.InputText
 import com.google.firebase.firestore.FirebaseFirestore
 
-class MyAdapter (val inputList: ArrayList<InputText>):
+class MyAdapter (val inputList: MutableList<DatabaseController.Purchases> = DatabaseController().periodList):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
-        lateinit var db: FirebaseFirestore
 
         val tvPurchaseName: TextView = itemView.findViewById(R.id.purchaseName)
         val tvPurchaseCategory: TextView = itemView.findViewById(R.id.purchaseCategory)

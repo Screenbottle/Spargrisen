@@ -31,17 +31,18 @@ Använd convertDateToMillis("DD/MM/YYYY") för att konvertera tid.
 class DatabaseController {
 
     data class Purchases(
-        var purchaseName : String = "",
-        var purchaseCost : Long = 0,
-        var purchaseCategory : String = "",
-        var purchaseDate : Long = 0,
-        var purchaseDateString : String = "",
+        var purchaseName: String = "",
+        var purchaseCost: Long = 0,
+        var purchaseCategory: String = "",
+        var purchaseDate: Long = 0,
+        var purchaseDateString: String = "",
     )
 
     var purchasesList: MutableList<Purchases> = mutableListOf()
-    var periodList : MutableList<Purchases> = mutableListOf()
-    var currentMonthSelected: Int = -1 // Startar på -1 så att perioden som visas vid start är från förra lönen till nästa
-    var periodDate : String = getTodaysDate()
+    var periodList: MutableList<Purchases> = mutableListOf()
+    var currentMonthSelected: Int =
+        -1 // Startar på -1 så att perioden som visas vid start är från förra lönen till nästa
+    var periodDate: String = getTodaysDate()
 
     init {
         getPurchaseData()
@@ -92,7 +93,10 @@ class DatabaseController {
     }
 
     fun setPeriodList() {
-        periodList = listBetweenDates(getPeriodMinusMonths(getTodaysDate(), currentMonthSelected), getPeriodMinusMonths(getTodaysDate(), currentMonthSelected + 1))
+        periodList = listBetweenDates(
+            getPeriodMinusMonths(getTodaysDate(), currentMonthSelected),
+            getPeriodMinusMonths(getTodaysDate(), currentMonthSelected + 1)
+        )
     }
 
     fun nextDate() {
@@ -103,18 +107,15 @@ class DatabaseController {
         currentMonthSelected--
     }
 
-    fun getExpensesMonth(a: String, b: String): Long {
-        val a = convertDateToMillis(a)
-        val b = convertDateToMillis(b)
+    fun setUsersBudget(budgetInput: Long) {
+        val db = FirebaseFirestore.getInstance()
+        val user = Firebase.auth.currentUser
+        val uid = user!!.uid
 
-        var totalCost: Long = 0
-        for (i in purchasesList) {
-            if (i.purchaseDate in a!!..b!!) {
-                totalCost += i.purchaseCost
-                Log.d("purchaseCost", i.purchaseName)
-            }
-        }
-        return totalCost
+        val budget = HashMap<String, Any>()
+        budget["budget"] = budgetInput
+
+        db.collection("users").document(uid).set(budget)
     }
 
     //Get current users UID
@@ -128,9 +129,9 @@ class DatabaseController {
     //Use this to get full name from db
     //Example: val fName = getFullName(getUID())
 
-    fun getUserName(uid : String) : String? {
+    fun getUserName(uid: String): String? {
         val db = FirebaseFirestore.getInstance()
-        var userName : String? = ""
+        var userName: String? = ""
 
         db.collection("users").document(uid)
             .get()
@@ -144,9 +145,9 @@ class DatabaseController {
 
     //Use this to get email from db
     //Example: val email = getEmail(getUID())
-    fun getEmail(uid : String) : String? {
+    fun getEmail(uid: String): String? {
         val db = FirebaseFirestore.getInstance()
-        var email : String? = ""
+        var email: String? = ""
         db.collection("users").document(uid)
             .get()
             .addOnSuccessListener { document ->
@@ -157,7 +158,7 @@ class DatabaseController {
     }
 
     //Used to register user to the Firestore db
-    fun registerUserToFirestore(inputFullname : String, inputEmail : String) {
+    fun registerUserToFirestore(inputFullname: String, inputEmail: String) {
         val db = FirebaseFirestore.getInstance()
         val auth = Firebase.auth
 
@@ -175,10 +176,16 @@ class DatabaseController {
 
     // Use this to add input to the database
     // Example: addInputData("Burger king", 1, 363, "01/01/2003")
-    fun addInputData(purchaseName : String, purchaseCost : Long, purchaseCategory: String, purchaseDate : String) { // purchaseDate = "DD/MM/YEAR"
+    fun addInputData(
+        purchaseName: String,
+        purchaseCost: Long,
+        purchaseCategory: String,
+        purchaseDate: String
+    ) { // purchaseDate = "DD/MM/YEAR"
         val db = FirebaseFirestore.getInstance()
 
-        val purchaseDateToMillis = convertDateToMillis(purchaseDate) // Convert timestamp to millis so we can query it in firestore
+        val purchaseDateToMillis =
+            convertDateToMillis(purchaseDate) // Convert timestamp to millis so we can query it in firestore
 
         val inputData: MutableMap<Any, Any> = HashMap()
         inputData["Item"] = purchaseName
@@ -199,11 +206,12 @@ class DatabaseController {
 
     //Use this function to convert a string date to millis
     //Example: val dateInMillis = convertDateToMillis("02/03/2022")
-    fun convertDateToMillis (date : String) : Long? {
+    fun convertDateToMillis(date: String): Long? {
         val simpleDate = SimpleDateFormat("dd/M/yyyy")
 
         val mDate: java.util.Date? = simpleDate.parse(date) // Convert string into Date
-        val timeInMilliseconds : Long? = mDate?.time // Convert mDate to millis and put the value in a long
+        val timeInMilliseconds: Long? =
+            mDate?.time // Convert mDate to millis and put the value in a long
 
         Log.d("DB", timeInMilliseconds.toString())
 
@@ -230,7 +238,5 @@ class DatabaseController {
         val currentDate = sdf.format(Date())
         return currentDate
     }
-
-
 }
 
