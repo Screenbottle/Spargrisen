@@ -1,21 +1,16 @@
 package com.example.spargrisen.fragments
 
-
+import android.media.Image
 import android.os.Bundle
-
-import android.annotation.SuppressLint
-import android.content.Context
-import android.os.Bundle
-import android.print.PrintManager
 import android.util.Log
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.spargrisen.DatabaseController
-import com.example.spargrisen.MyPrintDocumentAdapter
 import com.example.spargrisen.R
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.google.firebase.auth.FirebaseAuth
@@ -32,43 +27,58 @@ class GraphFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     var dbc = DatabaseController()
 
-
-    lateinit var textTest: TextView
     lateinit var periodGraph: GraphView
     lateinit var yearGraph: AAChartView
+    lateinit var pieGraph: AAChartView
+    lateinit var backButton: ImageButton
+    lateinit var nextButton: ImageButton
+    lateinit var dateText: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_graph, container, false)
+        val view = inflater.inflate(R.layout.fragment_graph, container, false)
 
         periodGraph = view.findViewById(R.id.period_graph)
         yearGraph = view.findViewById(R.id.year_graph)
+        pieGraph = view.findViewById(R.id.categorygraph)
+        backButton = view.findViewById(R.id.backDate)
+        nextButton = view.findViewById(R.id.nextDate)
+        dateText = view.findViewById(R.id.dateText)
+
 
         auth = Firebase.auth
 
+        nextButton.setOnClickListener {
+            dbc.nextDate()
+            dbc.setPeriodList()
+            init()
+        }
+
+        backButton.setOnClickListener {
+            dbc.backDate()
+            dbc.setPeriodList()
+            init()
+        }
 
         //Listen for database changes, if true refresh functions
         FirebaseFirestore.getInstance().collection("users")
             .document(dbc.getUID())
-            .collection("values")
+            .collection("itemList")
             .addSnapshotListener { snapshot, e ->
                 dbc.purchasesList.clear()
                 dbc.getPurchaseData()
 
-                populateGraph()
-                graphYear()
-                pieChart()
+                init()
             }
-
 
         return view
     }
@@ -86,26 +96,27 @@ class GraphFragment : Fragment() {
     }
 
     fun populateGraph() {
-                var graphList : ArrayList<DataPoint> = ArrayList()
-                var graphArray: Array<DataPoint>
+        var graphList : MutableList<DataPoint> = mutableListOf()
+        var graphArray: Array<DataPoint> = arrayOf<DataPoint>()
 
-
-                for (i in dbc.purchasesList.indices) {
-                    graphList.add(i, DP(getDay(dbc.purchasesList[i].purchaseDateString),
-                        dbc.purchasesList[i].purchaseCost
-                    ))
-
-                }
-                graphArray = graphList.sortedBy { it.x }.toTypedArray()
-
-                val series: LineGraphSeries<DataPoint> = LineGraphSeries(
-                    graphArray
+        for (i in dbc.periodList.indices) {
+            graphList.add(
+                i, DP(
+                    getDay(dbc.periodList[i].purchaseDateString),
+                    dbc.periodList[i].purchaseCost
                 )
-                periodGraph.addSeries(series)
+            )
+        }
+
+        graphArray = graphList.sortedBy { it.x }.toTypedArray()
+
+        val series: LineGraphSeries<DataPoint> = LineGraphSeries(
+            graphArray
+        )
+        periodGraph.addSeries(series)
     }
 
     fun graphYear() {
-
         var janCost: Long = 0; var febCost: Long = 0; var marCost: Long = 0; var aprCost: Long = 0; var mayCost: Long = 0; var junCost: Long = 0; var julCost: Long = 0; var augCost: Long = 0; var sepCost: Long = 0; var octCost: Long = 0; var novCost: Long = 0; var decCost: Long = 0
 
         for (i in dbc.purchasesList.indices) {
@@ -154,7 +165,6 @@ class GraphFragment : Fragment() {
             )
 
         year_graph.aa_drawChartWithChartModel(yearGraph)
-
     }
 
     fun pieChart() {
@@ -170,10 +180,14 @@ class GraphFragment : Fragment() {
                 arrayOf(
                     AASeriesElement()
                         .data(arrayOf(
-                            arrayOf("Food", 100, 300, 400),
-                            arrayOf("Clothes", 200),
-                            arrayOf("Clothes", 200),
-                            arrayOf("Clothes", 200),
+                            arrayOf("Mat & Dryck", 100, 300, 400),
+                            arrayOf("Boende & Hushåll", 200),
+                            arrayOf("Shopping", 200),
+                            arrayOf("Hälsa & Skönhet", 200),
+                            arrayOf("Fritid", 200),
+                            arrayOf("Transport", 200),
+                            arrayOf("Hem & Trädgård", 200),
+                            arrayOf("Övrigt", 200),
                         ))
                 )
 
@@ -182,4 +196,11 @@ class GraphFragment : Fragment() {
         pieGraph.aa_drawChartWithChartModel(pieChart)
     }
 
+    fun init() {
+        dateText.text = dbc.periodDate
+
+        populateGraph()
+        graphYear()
+        pieChart()
+    }
 }
