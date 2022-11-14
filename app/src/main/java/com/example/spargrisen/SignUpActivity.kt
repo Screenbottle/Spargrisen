@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spargrisen.fragments.GraphFragment
+import com.example.spargrisen.fragments.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
@@ -68,7 +69,7 @@ class SignUpActivity : AppCompatActivity() {
                     DatabaseController().registerUserToFirestore(inputFullname, inputEmail) // Also register user to Firestore
 
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this, GraphFragment::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     //val user = auth.currentUser
                     Toast.makeText(baseContext, "Du är nu inloggad.",
@@ -79,7 +80,6 @@ class SignUpActivity : AppCompatActivity() {
 
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
-
                 }
             }
             .addOnFailureListener {

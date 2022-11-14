@@ -7,11 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.spargrisen.fragments.GraphFragment
+import com.example.spargrisen.fragments.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -40,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         val signupBtn = findViewById<Button>(R.id.signupBtn)
-        signupBtn.setOnClickListener {
+        loginTV.setOnClickListener {
            goToSignupActivity()
         }
 
@@ -52,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun goToMainpage (){
-        val intent = Intent(this, GraphFragment::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
     fun goToSignupActivity() {
@@ -68,12 +71,13 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("!!!", "sign in sucess")
+                    Log.d("!!!", "Sign in sucess")
                     goToMainpage()
 
                 } else {
-                    Log.d("!!!", "sing in fail ${task.exception}")
-                    goToSignupActivity()
+                    Log.d("!!!", "Sign in fail ${task.exception}")
+                    Toast.makeText(this, "Inloggning misslyckades.",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
     }

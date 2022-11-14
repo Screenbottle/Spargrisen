@@ -1,14 +1,14 @@
 package com.example.spargrisen
 
-import android.provider.ContactsContract.Data
 import android.util.Log
-import com.google.android.gms.common.api.internal.LifecycleCallback
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 
 /* Noteringar till teamet
@@ -31,16 +31,38 @@ class DatabaseController {
 
     data class Purchases(
         var purchaseName : String = "",
-        var purchaseAmount : Long = 0,
         var purchaseCost : Long = 0,
+        var purchaseCategory : String = "",
         var purchaseDate : Long = 0,
         var purchaseDateString : String = "",
     )
 
+    var purchasesList: MutableList<Purchases> = mutableListOf()
+
+    init {
+        getPurchaseData()
+    }
+
+
     val dbRef = FirebaseFirestore.getInstance().collection("users").document(getUID())
-        .collection("values")
-        .whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2020")!!)
-        .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2023")!!)
+        .collection("itemList")
+        //.whereGreaterThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2020")!!)
+       // .whereLessThanOrEqualTo("purchaseDate", convertDateToMillis("22/02/2023")!!)
+
+    //Get current year
+    fun getCurrentYear(): String {
+        return Calendar.getInstance().get(Calendar.YEAR).toString()
+    }
+
+    fun getYear(a: String): String {
+        return a.substring(6, 10)
+    }
+
+    fun convertYearToMillis(year: String): Long? {
+        val sdf = SimpleDateFormat("yyyy")
+        val date = sdf.parse(year)
+        return date?.time
+    }
 
     //Get current users UID
     //Example: val currentUID = getUID()
@@ -100,19 +122,19 @@ class DatabaseController {
 
     // Use this to add input to the database
     // Example: addInputData("Burger king", 1, 363, "01/01/2003")
-    fun addInputData(purchaseName : String, purchaseAmount : Long, purchaseCost : Long, purchaseDate : String) { // purchaseDate = "DD/MM/YEAR"
+    fun addInputData(purchaseName : String, purchaseCost : Long, purchaseCategory: String, purchaseDate : String) { // purchaseDate = "DD/MM/YEAR"
         val db = FirebaseFirestore.getInstance()
 
         val purchaseDateToMillis = convertDateToMillis(purchaseDate) // Convert timestamp to millis so we can query it in firestore
 
         val inputData: MutableMap<Any, Any> = HashMap()
-        inputData["purchaseName"] = purchaseName
-        inputData["purchaseAmount"] = purchaseAmount
-        inputData["purchaseCost"] = purchaseCost
+        inputData["Item"] = purchaseName
+        inputData["Price"] = purchaseCost
+        inputData["Category"] = purchaseCategory
         inputData["purchaseDate"] = purchaseDateToMillis!!
         inputData["purchaseDateString"] = purchaseDate
 
-        val inputRef = db.collection("users").document(getUID()).collection("values").document()
+        val inputRef = db.collection("users").document(getUID()).collection("itemList").document()
 
         inputRef.set(inputData).addOnSuccessListener {
             Log.d("DB", "Input added")
@@ -136,6 +158,25 @@ class DatabaseController {
     }
 
 
-
+    fun getPurchaseData() {
+            runBlocking {
+                val itemsFromDb: List<Purchases> =
+                    FirebaseFirestore.getInstance().collection("users").document(getUID())
+                        .collection("itemList")
+                        .get()
+                        .await()
+                        .documents
+                        .map { itemDocument ->
+                            Purchases(
+                                purchaseName = itemDocument.getString("Item")!!,
+                                purchaseCost = itemDocument.getLong("Price")!!,
+                                purchaseDate = itemDocument.getLong("purchaseDate")!!,
+                                purchaseDateString = itemDocument.getString("purchaseDateString")!!,
+                                purchaseCategory = itemDocument.getString("Category")!!
+                            )
+                        }
+                purchasesList.addAll(itemsFromDb)
+            }
+        }
 }
 
