@@ -1,8 +1,10 @@
 package com.example.spargrisen.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.print.PrintManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spargrisen.*
+import com.example.spargrisen.utils.PDFListener
+import com.gkemon.XMLtoPDF.PdfGenerator
+import com.gkemon.XMLtoPDF.PdfGeneratorListener
+import com.gkemon.XMLtoPDF.model.FailureResponse
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_manual_input.*
 import kotlinx.android.synthetic.main.category_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 /**
@@ -119,7 +126,6 @@ class HomeFragment : Fragment() {
             }
 
 
-
         return view
     }
 
@@ -131,9 +137,16 @@ class HomeFragment : Fragment() {
         return uid
     }
 
-fun fetchData() {
+    fun fetchData() {
 
-}
+    }
+
+    private fun doPrint() {
+
+
+    }
+
+
 
     fun updateAmount() {
 
