@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.ic_graph -> replaceFragment(GraphFragment())
                     R.id.ic_home -> replaceFragment(HomeFragment())
                     R.id.ic_settings -> replaceFragment(SettingsFragment())
-                    R.id.ic_camera -> replaceFragment(CameraFragment())
+
 
 
                 }
