@@ -9,6 +9,6 @@ data class InputText (
     var purchaseName : String? = null,
     var purchaseCategory : String? = null,
     var purchaseCost :  Long? = null,
-    var purchaseDateString : String? = null,
+    var purchaseDate : String? = null,
 
 )
