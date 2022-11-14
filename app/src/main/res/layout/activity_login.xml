@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
 
     <Button
-        android:id="@+id/loginTV"
+        android:id="@+id/goToRegistreraTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Inte Registrerad Än , Sign Up !"
