@@ -1,18 +1,15 @@
 package com.example.spargrisen
 
 import android.annotation.SuppressLint
-import android.graphics.Color.red
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.spargrisen.fragments.InputText
 import com.google.firebase.firestore.FirebaseFirestore
 
-class MyAdapter (val inputList: ArrayList<InputText>):
+class MyAdapter(val inputList: MutableList<DatabaseController.Purchases>):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -22,7 +19,7 @@ class MyAdapter (val inputList: ArrayList<InputText>):
         val tvPurchaseName: TextView = itemView.findViewById(R.id.purchaseName)
         val tvPurchaseCategory: TextView = itemView.findViewById(R.id.purchaseCategory)
         val tvPurchasePrice: TextView = itemView.findViewById(R.id.price)
-        //val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
+        val tvPurchaseDate: TextView = itemView.findViewById(R.id.purchaseDate)
         //val tvKategorival: TextView = itemView.findViewById(R.id.spinnerC)
 
 
@@ -36,10 +33,10 @@ class MyAdapter (val inputList: ArrayList<InputText>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.tvPurchaseName.text = inputList[position].purchaseName
-        holder.tvPurchaseCategory.text = inputList[position].purchaseCategory
-        holder.tvPurchasePrice.text = inputList[position].purchaseCost.toString()
-       // holder.tvPurchaseDate.text = inputList[position].purchaseDate
+        holder.tvPurchaseName.text = DatabaseController().purchasesList[position].purchaseName
+        holder.tvPurchaseCategory.text = DatabaseController().purchasesList[position].purchaseCategory
+        holder.tvPurchasePrice.text = DatabaseController().purchasesList[position].purchaseCost.toString()
+        holder.tvPurchaseDate.text = DatabaseController().purchasesList[position].purchaseDateString
        // holder.tvKategorival.text = inputList[position].kategorival.toString() //l
 
         //val inputText = inputList[position]

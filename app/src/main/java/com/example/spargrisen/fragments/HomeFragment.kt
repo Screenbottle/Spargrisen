@@ -3,10 +3,12 @@ package com.example.spargrisen.fragments
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +64,11 @@ class HomeFragment : Fragment() {
         val addInputCameraBtn = view.findViewById<FloatingActionButton>(R.id.addInputCameraBtn)
         val addManualInputBtn = view.findViewById<FloatingActionButton>(R.id.addManualInputBtn)
 
+        val expensesText = view.findViewById<TextView>(R.id.expense)
+
+
+        expensesText.text = dbController.getExpensesMonth("25/02/2022", "25/03/2022").toString()
+
 
         addInputBtn.setOnClickListener {
 //            val intent = Intent(requireContext(), LoginActivity::class.java)
@@ -113,7 +120,7 @@ class HomeFragment : Fragment() {
                         }
                     }
 
-                    recyclerView.adapter = MyAdapter(inputList)
+                    recyclerView.adapter = MyAdapter(DatabaseController().purchasesList)
 
                 }
             }
@@ -129,20 +136,6 @@ class HomeFragment : Fragment() {
 
         val uid : String = auth.uid.toString()
         return uid
-    }
-
-fun fetchData() {
-
-}
-
-    fun updateAmount() {
-
-        val totalAmount = inputList.map { it.purchaseCost!! }.sum()
-
-        // val budgetAmount = inputList.filter { it.purchaseCost!! >0 }.map{it.purchaseCost}.sum()
-
-        //val expenseAmount = totalAmount - budgetAmount
-
     }
 }
 
