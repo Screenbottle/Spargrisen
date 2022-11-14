@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.137" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/dateText"
         android:layout_width="353dp"
         android:layout_height="141dp"
         android:layout_marginTop="10dp"
@@ -60,6 +60,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/dateText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
