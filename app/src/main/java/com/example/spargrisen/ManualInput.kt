@@ -56,40 +56,37 @@ class ManualInput : AppCompatActivity() {
                 ).show()
             }
 
-                else {
+            else {
 
-                    val txtItemText = itemText.text.toString().trim()
-                    val txtPriceText = priceText.text.toString().trim()
-                    val txtItemCategory = itemCategory.text.toString().trim()
+                val txtItemText = itemText.text.toString().trim()
+                val txtPriceText = priceText.text.toString().trim()
+                val txtItemCategory = itemCategory.text.toString().trim()
 
+                val inputList = hashMapOf(
+                    "Item" to txtItemText,
+                    "Price" to txtPriceText,
+                    "itemCategory" to txtItemCategory,
+                    // "kategorival" to skategorival,
+                    "Date" to Timestamp(java.util.Date()),
+                    )
 
-                    val inputList = hashMapOf(
+                db.collection("users").document(getUID()).collection("itemList").document()
+                    .set(inputList)
+                    .addOnSuccessListener {
+                        Log.d("DB", "Input added")
 
-                        "Item" to txtItemText,
-                        "Price" to txtPriceText,
-                        "itemCategory" to txtItemCategory,
-                        // "kategorival" to skategorival,
-                        "Date" to Timestamp(java.util.Date()),
+                        itemText.text.clear()
+                        priceText.text.clear()
+                        itemCategory.text.clear()
 
-                        )
+                        //val intent = Intent(this, HomeFragment::class.java)
+                    //startActivity(intent)
 
-                    db.collection("users").document(getUID()).collection("itemList").document()
-                        .set(inputList)
-                        .addOnSuccessListener {
-                            Log.d("DB", "Input added")
-
-                            itemText.text.clear()
-                            priceText.text.clear()
-                            itemCategory.text.clear()
-
-                            //val intent = Intent(this, HomeFragment::class.java)
-                            //startActivity(intent)
-
-                        }.addOnFailureListener {
-                            Log.d("DB", "Input failed")
-                        }
-                }
+                    }.addOnFailureListener {
+                        Log.d("DB", "Input failed")
+                    }
             }
+        }
 
     }
     fun getUID() : String {

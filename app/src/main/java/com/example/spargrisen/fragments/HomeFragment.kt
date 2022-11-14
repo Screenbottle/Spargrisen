@@ -68,6 +68,7 @@ class HomeFragment : Fragment() {
         val addInputBtn = view.findViewById<FloatingActionButton>(R.id.addInputBtn)
         val addInputCameraBtn = view.findViewById<FloatingActionButton>(R.id.addInputCameraBtn)
         val addManualInputBtn = view.findViewById<FloatingActionButton>(R.id.addManualInputBtn)
+        val printBtn = view.findViewById<FloatingActionButton>(R.id.printBtn)
 
 
         addInputBtn.setOnClickListener {
@@ -77,6 +78,7 @@ class HomeFragment : Fragment() {
 
                 addManualInputBtn.startAnimation(fabClose)
                 addInputCameraBtn.startAnimation(fabClose)
+                printBtn.startAnimation(fabClose)
                 addInputBtn.startAnimation(fabRClockwise)
 
                 isOpen= false
@@ -86,9 +88,11 @@ class HomeFragment : Fragment() {
                 addManualInputBtn.startAnimation(fabOpen)
                 addInputCameraBtn.startAnimation(fabOpen)
                 addInputBtn.startAnimation(fabRAntiClockwise)
+                printBtn.startAnimation(fabOpen)
 
                 addManualInputBtn.isClickable
                 addInputCameraBtn.isClickable
+                printBtn.isClickable
 
                 isOpen = true
 
@@ -104,6 +108,10 @@ class HomeFragment : Fragment() {
                 val intent = Intent(requireContext(), ManualInput::class.java)
                 startActivity(intent)
 
+            }
+
+            printBtn.setOnClickListener {
+                doPrint(view)
             }
 
         }
@@ -137,24 +145,24 @@ class HomeFragment : Fragment() {
         return uid
     }
 
-    fun fetchData() {
 
-    }
-
-    private fun doPrint() {
-
-
-    }
+    private fun doPrint(view: View) {
 
 
 
-    fun updateAmount() {
+        val pdfListener = PDFListener()
 
-        val totalAmount = inputList.map { it.purchaseCost!! }.sum()
+        PdfGenerator.getBuilder()
+            .setContext(activity)
+            .fromViewSource()
+            .fromView(view.relative_layout)
+            .setFileName("TABLE-PDF")
+            .setFolderNameOrPath("TABLE-PDF-Folder")
+            .actionAfterPDFGeneration(PdfGenerator.ActionAfterPDFGeneration.OPEN)
+            .build(pdfListener)
+        }
 
-        // val budgetAmount = inputList.filter { it.purchaseCost!! >0 }.map{it.purchaseCost}.sum()
-
-        //val expenseAmount = totalAmount - budgetAmount
+    private fun prepareView(view: View) {
 
     }
 }

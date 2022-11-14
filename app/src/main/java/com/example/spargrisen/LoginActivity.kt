@@ -2,20 +2,19 @@ package com.example.spargrisen
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import com.example.spargrisen.fragments.GraphFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    //lateinit var db : FirebaseFirestore
+    // lateinit var db : FirebaseFirestore
     lateinit var auth: FirebaseAuth
     lateinit var emailText: EditText
     lateinit var userPassword1: EditText
@@ -39,20 +38,20 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        val signupBtn = findViewById<Button>(R.id.signupBtn)
-        signupBtn.setOnClickListener {
-           goToSignupActivity()
+        val goToRegistreraTV = findViewById<Button>(R.id.goToRegistreraTV)
+        goToRegistreraTV.setOnClickListener {
+            goToSignupActivity()
         }
 
         if (auth.currentUser != null) {
             Log.d("!!!", "${auth.currentUser?.email}")
-         goToMainpage()
+            goToMainpage()
         }
-       // auth.signOut()
+        // auth.signOut()
     }
 
     fun goToMainpage (){
-        val intent = Intent(this, GraphFragment::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
     fun goToSignupActivity() {
@@ -68,17 +67,20 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("!!!", "sign in sucess")
+//                    Log.d("!!!", "Sign in sucess")
                     goToMainpage()
 
                 } else {
-                    Log.d("!!!", "sing in fail ${task.exception}")
-                    goToSignupActivity()
+//                    Log.d("!!!", "Sign in fail ${task.exception}")
+//                    Toast.makeText(this, "Inloggning misslyckades.",
+//                        Toast.LENGTH_SHORT).show()
+
                 }
             }
+
+
     }
 
 
 
 }
-
