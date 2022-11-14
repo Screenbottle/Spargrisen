@@ -14,7 +14,9 @@ import com.example.spargrisen.fragments.HomeFragment
 import com.example.spargrisen.fragments.SettingsFragment
 import com.example.spargrisen.utils.PDFListener
 import com.gkemon.XMLtoPDF.PdfGenerator
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 var userID: Int = 0// Users ID
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentFragment: Fragment
+    private var printable = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +41,18 @@ class MainActivity : AppCompatActivity() {
             viewbinding.bottomNavigation.setOnItemSelectedListener {
 
                 when (it.itemId) {
-                    R.id.ic_graph -> replaceFragment(GraphFragment())
-                    R.id.ic_home -> replaceFragment(HomeFragment())
-                    R.id.ic_settings -> replaceFragment(SettingsFragment())
+                    R.id.ic_graph -> {
+                        replaceFragment(GraphFragment())
+                        printable = false
+                    }
+                    R.id.ic_home -> {
+                        printable = true
+                        doPrint()
+                        replaceFragment(HomeFragment())}
+                    R.id.ic_settings -> {
+                        printable = false
+                        replaceFragment(SettingsFragment())
+                    }
 
 
 
@@ -62,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun doPrint() {
 
-        if (currentFragment.view != null) {
+        if (currentFragment.view != null && printable) {
             val pdfListener = PDFListener()
 
 
