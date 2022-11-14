@@ -17,7 +17,7 @@
             android:id="@+id/purchaseName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Produkt"
+            android:text="@string/produkt"
             android:textColor="#DCFF80AB"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -26,7 +26,7 @@
             android:id="@+id/purchaseCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="kategori"
+            android:text="@string/kategori"
             android:textColor="#9E9595"
             android:textSize="18sp" />
 
@@ -34,7 +34,7 @@
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pris"
+            android:text="@string/pris"
             android:textColor="#9A9292"
             android:textSize="18sp" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/purchaseDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Datum"
+            android:text="@string/datum"
             android:textSize="15sp"
             android:textColor="#9A9292"
 

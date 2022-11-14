@@ -9,9 +9,13 @@
     <string name="placeholder">Placeholder</string>
     <string name="sign_up">Sign up</string>
 
+    //Activity camera
     <string name="scanned_currency">Scanned currency: </string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+
+
+
 
     <string-array name="Kategorival">
 
@@ -28,5 +32,34 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="selected_item" />
+
+    //fragment_setting
+    <string name="edit">Edit</string>
+    <string name="log_out">Log Out</string>
+    <string name="confirme_password">Confirm password</string>
+    <string name="email">Email</string>
+    <string name="f_r_och_efternam">First and lastname</string>
+
+    //fragment_home
+    <string name="total_m_nad">Total</string>
+    <string name="budget">Budget</string>
+    <string name="utgifter">EXPENDITURE</string>
+    <string name="transaktion">TRANSAKTION</string>
+
+    //fragment_graph
+    <string name="date">Date</string>
+
+    //Menu
+    <string name="graph">Graph</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+
+    // Layout category list
+    <string name="produkt">Product</string>
+    <string name="kategori">category</string>
+    <string name="pris">price</string>
+    <string name="datum">Date</string>
+
+
 </resources>
 

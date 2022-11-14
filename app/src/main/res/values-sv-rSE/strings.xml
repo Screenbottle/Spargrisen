@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Spargrisen</string>
+    <string name="take_photo">Ta bild</string>
+
+    <string name="unknown_error">Okänt error uppstod.</string>
+    <string name="content_description_google_translate_attribution">Google översätt attribute</string>
+    <string name="overlay_help">Centrera text</string>
+    <string name="downloading_model_files">Ladda ner filer…</string>
+    <string name="placeholder">Platshållare</string>
+    <string name="sign_up">Registrera</string>
+
+    //Activity camera
+    <string name="scanned_currency">Skannad valuta: </string>
+    <string name="confirm">Bekräfta</string>
+    <string name="cancel">Avbryt</string>
+
+
+
+
+    <string-array name="Kategorival">
+
+        <item>Mat/dryck</item>
+        <item>Boende/hushåll</item>
+        <item>Shopping</item>
+        <item>Hälsa/skönhet</item>
+        <item>Fritid</item>
+        <item>Transport</item>
+        <item>Hem/trädgård</item>
+        <item>Övrigt</item>
+
+    </string-array>
+
+    <string name="hello_blank_fragment">Hej blankt fragment</string>
+    <string name="selected_item" />
+
+    //fragment_setting
+    <string name="edit">Redigera</string>
+    <string name="log_out">Logga ut</string>
+    <string name="confirme_password">Bekräfta lösenord</string>
+    <string name="email">Email</string>
+    <string name="f_r_och_efternam">För och efternamn</string>
+
+    //fragment_home
+    <string name="total_m_nad">Totalt</string>
+    <string name="budget">Budget</string>
+    <string name="utgifter">UTGIFTER</string>
+    <string name="transaktion">TRANSAKTIONER</string>
+
+    //fragment_graph
+    <string name="date">Datum</string>
+
+    //Menu
+    <string name="graph">Graf</string>
+    <string name="home">Hem</string>
+    <string name="settings">Inställningar</string>
+
+    // Layout category list
+    <string name="produkt">Produkt</string>
+    <string name="kategori">Kategori</string>
+    <string name="pris">Pris</string>
+    <string name="datum">Datum</string>
+
+
+</resources>
