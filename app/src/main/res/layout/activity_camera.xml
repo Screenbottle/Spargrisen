@@ -45,25 +45,44 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/scannedText"
             app:layout_constraintEnd_toStartOf="@+id/scannedText" />
 
-        <Button
-            android:id="@+id/confirmButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginBottom="70dp"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/backgroundButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_background"
             android:text="@string/confirm"
+            android:textColor="#000000"
+            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/viewFinder" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirmButton"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/round_button"
+            android:text="@string/confirm"
+            android:textColor="#000000"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#B4C6081E"
             android:text="@string/cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/viewFinder"
-            app:layout_constraintStart_toEndOf="@+id/confirmButton" />
+            android:textColor="#000000"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

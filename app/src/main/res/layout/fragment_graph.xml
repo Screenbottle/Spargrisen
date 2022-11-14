@@ -89,6 +89,14 @@
                 android:layout_height="400dp"
                 android:layout_marginTop="340dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                android:id="@+id/categorygraph"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="800dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
             </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>

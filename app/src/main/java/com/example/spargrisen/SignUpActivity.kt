@@ -50,7 +50,7 @@ class SignUpActivity : AppCompatActivity() {
 
         val email = findViewById<EditText>(R.id.emailText)
         val password = findViewById<EditText>(R.id.userPassword)
-        val fullname = findViewById<EditText>(R.id.userName)
+        val fullname = findViewById<EditText>(R.id.fullName)
 
         if(email.text.isEmpty() || password.text.isEmpty() || fullname.text.isEmpty() ){
             Toast.makeText(this, "Fyll i alla fält.",
