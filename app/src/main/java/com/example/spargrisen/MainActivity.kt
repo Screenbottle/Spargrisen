@@ -28,22 +28,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        auth = Firebase.auth
 
-        if (auth.currentUser == null) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
 
-        setContentView(R.layout.activity_navbar)
+            setContentView(R.layout.activity_navbar)
+            val viewbinding = ActivityNavbarBinding.inflate(layoutInflater)
 
-        val viewbinding = ActivityNavbarBinding.inflate(layoutInflater)
-
-        setContentView(viewbinding.root)
-        replaceFragment(GraphFragment())
-        viewbinding.bottomNavigation.setOnItemSelectedListener {
-
+            setContentView(viewbinding.root)
+            replaceFragment(GraphFragment())
+            viewbinding.bottomNavigation.setOnItemSelectedListener {
 
                 when (it.itemId) {
                     R.id.ic_graph -> replaceFragment(GraphFragment())
