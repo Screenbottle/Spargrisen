@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
         db.collection("users")
             .document(dbController.getUID())
             .addSnapshotListener { snapshot, e ->
-                var remainingBudget: Long = getRemainingBudget()
+                var remainingBudget: Long = getRemainingBudget()!!
 
                 expensesText.text = getExpensesMonth().toString()
                 bugetText.text = getBudgetMonth().toString()
@@ -135,15 +135,29 @@ class HomeFragment : Fragment() {
         return uid
     }
 
-    fun getBudgetMonth(): Long {
-        var usersBudget: Long = 0
+    fun getBudgetMonth(): Long? {
+        var usersBudget: Long? = 0
 
-        runBlocking {
+        /*runBlocking {
             usersBudget = db.collection("users").document(getUID())
                 .get()
                 .await()
                 .get("budget") as Long
-        }
+        }*/
+        //get users budget
+        db.collection("users").document(getUID())
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    usersBudget = document.get("budget") as? Long
+                } else {
+                    Log.d("TAG", "No such document")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "get failed with ", exception)
+            }
+
         return usersBudget
     }
 
@@ -157,8 +171,8 @@ class HomeFragment : Fragment() {
         return totalCost
     }
 
-    fun getRemainingBudget(): Long {
-        var remainingBudget = getBudgetMonth() - getExpensesMonth()
+    fun getRemainingBudget(): Long? {
+        var remainingBudget = getBudgetMonth()?.minus (getExpensesMonth())
 
         return remainingBudget
     }

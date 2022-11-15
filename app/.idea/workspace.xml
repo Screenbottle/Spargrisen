@@ -5,15 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18fc9000-2941-4445-960a-537b1d679396" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spargrisen/DatabaseController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spargrisen/DatabaseController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spargrisen/ManualInput.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spargrisen/ManualInput.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spargrisen/fragments/GraphFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spargrisen/fragments/GraphFragment.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
