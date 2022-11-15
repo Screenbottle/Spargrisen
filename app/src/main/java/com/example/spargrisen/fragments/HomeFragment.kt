@@ -140,26 +140,12 @@ class HomeFragment : Fragment() {
     fun getBudgetMonth(): Long? {
         var usersBudget: Long? = 0
 
-        /*runBlocking {
+        runBlocking {
             usersBudget = db.collection("users").document(getUID())
                 .get()
                 .await()
                 .get("budget") as Long
-        }*/
-        //get users budget
-        db.collection("users").document(getUID())
-            .get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    usersBudget = document.get("budget") as? Long
-                } else {
-                    Log.d("TAG", "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "get failed with ", exception)
-            }
-
+        }
         return usersBudget
     }
 

@@ -1,7 +1,6 @@
 package com.example.spargrisen
 
 import android.util.Log
-import com.example.spargrisen.fragments.GraphFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -86,7 +85,7 @@ class DatabaseController {
 
         val list = mutableListOf<Purchases>()
         for (i in purchasesList) {
-            if (i.purchaseDate in startDate!!..endDate!!) {
+            if (i.purchaseDate in startDate..endDate) {
                 list.add(i)
             }
         }
@@ -146,19 +145,19 @@ class DatabaseController {
 
     //Used to register user to the Firestore db
     fun registerUserToFirestore(inputFullname: String, inputEmail: String) {
-        val db = FirebaseFirestore.getInstance()
-        val auth = Firebase.auth
+        //register user with await coroutine
+        runBlocking {
+            val db = FirebaseFirestore.getInstance()
+            val user = Firebase.auth.currentUser
+            val uid = user!!.uid
 
-        //Add data to firestore db
-        val user: MutableMap<String, Any> = HashMap()
-        user["fName"] = inputFullname
-        user["email"] = inputEmail
+            val userMap = HashMap<String, Any>()
+            userMap["fName"] = inputFullname
+            userMap["email"] = inputEmail
 
-        val documentReference = db.collection("users").document(getUID())
+            db.collection("users").document(uid).set(userMap)
+        }
 
-        documentReference.set(user).addOnSuccessListener {
-            Log.d("DB", "onSuccess: user Profile created: $userID")
-        }.addOnFailureListener { e -> Log.d("DB", "onFailure: $e") }
     }
 
     // Use this to add input to the database
@@ -199,6 +198,9 @@ class DatabaseController {
 
         return timeInMilliseconds
     }
+
+    //Function to model the year graph from purchaselist
+
 
     fun convertMillisToDateString(millis: Long): String {
         val sdf = SimpleDateFormat("dd/MM/yyyy")

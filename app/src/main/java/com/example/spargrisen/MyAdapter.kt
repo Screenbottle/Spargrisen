@@ -1,16 +1,11 @@
 package com.example.spargrisen
 
 import android.annotation.SuppressLint
-import android.graphics.Color.red
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.spargrisen.fragments.InputText
-import com.google.firebase.firestore.FirebaseFirestore
 
 class MyAdapter (val inputList: MutableList<DatabaseController.Purchases> = DatabaseController().periodList):
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
