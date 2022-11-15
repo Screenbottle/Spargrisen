@@ -71,7 +71,8 @@ class ManualInput : AppCompatActivity() {
         val sendBtn = findViewById<Button>(R.id.sendBtn)
         val date = findViewById<DatePicker>(R.id.calendarView)
 
-        var purchaseDate: String = "" ?: "No date"
+        //get current date in string format and save it in a variable
+        var purchaseDate: String = android.text.format.DateFormat.format("dd/MM/yyyy", Date()).toString()
 
         val today = Calendar.getInstance()
         date.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
@@ -91,6 +92,7 @@ class ManualInput : AppCompatActivity() {
             Log.d("Date", purchaseDate)
         }
 
+        Log.d("Date2", purchaseDate)
         checkBtn.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

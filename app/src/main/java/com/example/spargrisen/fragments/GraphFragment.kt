@@ -165,7 +165,7 @@ class GraphFragment : Fragment() {
 
             )
 
-        year_graph.aa_drawChartWithChartModel(yearGraph)
+       // year_graph.aa_drawChartWithChartModel(yearGraph)
     }
 
     fun pieChart() {
