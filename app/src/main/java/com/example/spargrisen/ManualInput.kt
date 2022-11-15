@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -40,8 +41,28 @@ class ManualInput : AppCompatActivity() {
 
         val checkBtn = findViewById<Button>(R.id.checkBtn)
         val sendBtn = findViewById<Button>(R.id.sendBtn)
-        //val date = findViewById<CalendarView>(R.id.calendarView)
 
+        val date = findViewById<DatePicker>(R.id.calendarView)
+
+        //get current date in string format and save it in a variable
+        var purchaseDate: String = android.text.format.DateFormat.format("dd/MM/yyyy", Date()).toString()
+
+        val today = Calendar.getInstance()
+        date.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+        ) { view, year, monthOfYear, dayOfMonth ->
+            var month : String = (monthOfYear + 1).toString()
+            var day = dayOfMonth.toString()
+
+            if (monthOfYear < 9) {
+                month = "0$month"
+            }
+            if(dayOfMonth < 10){
+                day = "0$dayOfMonth"
+            }
+
+            purchaseDate = "$day/$month/$year"
+        }
 
         checkBtn.setOnClickListener{
             val intent = Intent(this, HomeFragment::class.java)

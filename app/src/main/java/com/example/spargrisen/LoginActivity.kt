@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    // lateinit var db : FirebaseFirestore
+   // lateinit var db : FirebaseFirestore
+
     lateinit var auth: FirebaseAuth
     lateinit var emailText: EditText
     lateinit var userPassword1: EditText
@@ -40,15 +41,19 @@ class LoginActivity : AppCompatActivity() {
 
         val goToRegistreraTV = findViewById<Button>(R.id.goToRegistreraTV)
         goToRegistreraTV.setOnClickListener {
-            goToSignupActivity()
+
+           goToSignupActivity()
+
         }
 
         if (auth.currentUser != null) {
             Log.d("!!!", "${auth.currentUser?.email}")
             goToMainpage()
         }
-        // auth.signOut()
-    }
+
+       // auth.signOut()
+     }
+
 
     fun goToMainpage (){
         val intent = Intent(this, MainActivity::class.java)

@@ -1,20 +1,17 @@
 package com.example.spargrisen
 
 
-import android.content.Context
-import android.content.Intent
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.spargrisen.databinding.ActivityNavbarBinding
-import com.example.spargrisen.fragments.CameraFragment
 import com.example.spargrisen.fragments.GraphFragment
 import com.example.spargrisen.fragments.HomeFragment
 import com.example.spargrisen.fragments.SettingsFragment
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import kotlinx.android.synthetic.main.fragment_home.view.*
+
 
 var userID: Int = 0// Users ID
 
