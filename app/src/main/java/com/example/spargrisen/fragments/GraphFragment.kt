@@ -36,8 +36,10 @@ class GraphFragment : Fragment() {
     lateinit var yearGraph: AAChartView
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -45,7 +47,7 @@ class GraphFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_graph, container, false)
+        val view = inflater.inflate(R.layout.fragment_graph, container, false)
 
         periodGraph = view.findViewById(R.id.period_graph)
         pieGraph = view.findViewById(R.id.categorygraph)
@@ -53,6 +55,7 @@ class GraphFragment : Fragment() {
         nextButton = view.findViewById(R.id.nextDate)
         dateText = view.findViewById(R.id.dateText)
         yearGraph = view.findViewById(R.id.year_graph)
+
 
 
         auth = Firebase.auth
@@ -165,7 +168,6 @@ class GraphFragment : Fragment() {
                             ))
                     )
                 )
-
              year_graph.aa_drawChartWithChartModel(yearGraph)
         }
         else {
@@ -207,6 +209,7 @@ class GraphFragment : Fragment() {
                             arrayOf("Transport", transportCost),
                             arrayOf("Hem/trädgård", gardenCost),
                             arrayOf("Övrigt", otherCost),
+
                         ))
                 )
 

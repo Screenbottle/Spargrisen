@@ -1,11 +1,13 @@
 package com.example.spargrisen.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.provider.ContactsContract.Data
 import android.util.Log
+import android.print.PrintManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spargrisen.*
+import com.example.spargrisen.utils.PDFListener
+import com.gkemon.XMLtoPDF.PdfGenerator
+import com.gkemon.XMLtoPDF.PdfGeneratorListener
+import com.gkemon.XMLtoPDF.model.FailureResponse
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +31,7 @@ import kotlinx.android.synthetic.main.category_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
 
@@ -61,6 +68,7 @@ class HomeFragment : Fragment() {
         val addInputBtn = view.findViewById<FloatingActionButton>(R.id.addInputBtn)
         val addInputCameraBtn = view.findViewById<FloatingActionButton>(R.id.addInputCameraBtn)
         val addManualInputBtn = view.findViewById<FloatingActionButton>(R.id.addManualInputBtn)
+        val printBtn = view.findViewById<FloatingActionButton>(R.id.printBtn)
 
         val expensesText = view.findViewById<TextView>(R.id.expense)
         val bugetText = view.findViewById<TextView>(R.id.budget)
@@ -93,6 +101,7 @@ class HomeFragment : Fragment() {
 
                 addManualInputBtn.startAnimation(fabClose)
                 addInputCameraBtn.startAnimation(fabClose)
+                printBtn.startAnimation(fabClose)
                 addInputBtn.startAnimation(fabRClockwise)
 
                 isOpen= false
@@ -102,9 +111,11 @@ class HomeFragment : Fragment() {
                 addManualInputBtn.startAnimation(fabOpen)
                 addInputCameraBtn.startAnimation(fabOpen)
                 addInputBtn.startAnimation(fabRAntiClockwise)
+                printBtn.startAnimation(fabOpen)
 
                 addManualInputBtn.isClickable
                 addInputCameraBtn.isClickable
+                printBtn.isClickable
 
                 isOpen = true
 
@@ -122,8 +133,11 @@ class HomeFragment : Fragment() {
 
             }
 
-        }
+            printBtn.setOnClickListener {
+                doPrint(view)
+            }
 
+        }
 
 
         return view
@@ -136,6 +150,7 @@ class HomeFragment : Fragment() {
         val uid : String = auth.uid.toString()
         return uid
     }
+
 
     fun getBudgetMonth(): Long? {
         var usersBudget: Long? = 0
@@ -175,8 +190,21 @@ class HomeFragment : Fragment() {
 
     fun getRemainingBudget(): Long? {
         var remainingBudget = getBudgetMonth()?.minus (getExpensesMonth())
-
         return remainingBudget
+    }
+
+
+    private fun doPrint(view: View) {
+        val pdfListener = PDFListener()
+
+        PdfGenerator.getBuilder()
+            .setContext(activity)
+            .fromViewSource()
+            .fromView(view.relative_layout)
+            .setFileName("TABLE-PDF")
+            .setFolderNameOrPath("TABLE-PDF-Folder")
+            .actionAfterPDFGeneration(PdfGenerator.ActionAfterPDFGeneration.OPEN)
+            .build(pdfListener)
     }
 }
 

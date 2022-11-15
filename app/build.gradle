@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.0'
 
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
-    
+
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
@@ -86,4 +86,5 @@ dependencies {
     def nav_version = "2.5.3"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation 'com.github.Gkemon:Android-XML-to-PDF-Generator:2.6.7'
 }
