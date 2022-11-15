@@ -15,7 +15,7 @@
         android:src="@drawable/fui_idp_button_background_twitter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     <ImageButton
         android:id="@+id/backDate"

@@ -37,6 +37,7 @@ class DatabaseController {
         var purchaseDateString: String = "",
     )
 
+
     var purchasesList: MutableList<Purchases> = mutableListOf() // Här hamnar alla inköp som hämtas från databasen
     var periodList: MutableList<Purchases> = mutableListOf() // Här hamnar alla inköp i den tidsperioden användaren har valt
 
@@ -50,6 +51,7 @@ class DatabaseController {
 
     fun getPurchaseData() {
         runBlocking { //Coroutine så att funktionen väntar på att datan hämtats från databasen innan den fortsätter
+
             val itemsFromDb: List<Purchases> =
                 FirebaseFirestore.getInstance().collection("users").document(getUID())
                     .collection("itemList")
@@ -70,6 +72,7 @@ class DatabaseController {
     }
 
     fun getPeriodMinusMonths(date: String, minusMonths: Int): Long { // Hämta datumet minus/plus månader
+
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val date = sdf.parse(date)
         val calendar = Calendar.getInstance()
@@ -82,6 +85,7 @@ class DatabaseController {
     fun listBetweenDates(startDate: Long, endDate: Long): MutableList<Purchases> { // Hämta alla köp mellan två datum
 
         periodDate = "${convertMillisToDateString(startDate)} - ${convertMillisToDateString(endDate)}" // Ändra periodDate till den nya perioden
+
 
         val list = mutableListOf<Purchases>()
         for (i in purchasesList) {
@@ -97,6 +101,7 @@ class DatabaseController {
             getPeriodMinusMonths(getTodaysDate(), currentMonthSelected),
             getPeriodMinusMonths(getTodaysDate(), currentMonthSelected + 1)
         )
+
     }
 
     fun nextDate() {
@@ -224,3 +229,12 @@ class DatabaseController {
     }
 }
 
+
+    fun getTodaysDate(): String {
+        val sdf = SimpleDateFormat("25/MM/yyyy")
+        val currentDate = sdf.format(Date())
+        return currentDate
+    }
+
+
+}
