@@ -89,10 +89,8 @@ class ManualInput : AppCompatActivity() {
             }
 
             purchaseDate = "$day/$month/$year"
-            Log.d("Date", purchaseDate)
         }
 
-        Log.d("Date2", purchaseDate)
         checkBtn.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

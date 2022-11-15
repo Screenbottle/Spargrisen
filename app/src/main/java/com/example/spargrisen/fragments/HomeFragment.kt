@@ -2,6 +2,7 @@ package com.example.spargrisen.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.ContactsContract.Data
 import android.util.Log
@@ -76,13 +77,14 @@ class HomeFragment : Fragment() {
                 totalText.text = remainingBudget.toString()
 
                 if (remainingBudget < 0) {
-                    totalText.setTextColor(resources.getColor(R.color.red))
+                    totalText.setTextColor(Color.RED)
                 } else {
-                    totalText.setTextColor(resources.getColor(R.color.green))
+                    totalText.setTextColor(Color.RED)
                 }
 
                 recyclerView.adapter = MyAdapter(DatabaseController().periodList)
             }
+
 
         addInputBtn.setOnClickListener {
 //            val intent = Intent(requireContext(), LoginActivity::class.java)
