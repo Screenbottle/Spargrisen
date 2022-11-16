@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceHolder
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -22,6 +24,7 @@ class CameraActivity : AppCompatActivity() {
     //private lateinit var surfaceView: SurfaceView
     private lateinit var holder: SurfaceHolder
     private lateinit var viewBinding: ActivityCameraBinding
+    lateinit var scanResult: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +58,16 @@ class CameraActivity : AppCompatActivity() {
 
             })
         }
-
-        viewBinding.cancelButton.setOnClickListener {
+        val cancelButton = findViewById<Button>(R.id.cancelButton)
+        cancelButton.setOnClickListener {
+            Log.d("!!!", "pushed")
             finish()
         }
 
-        viewBinding.confirmButton.setOnClickListener {
-            var text = viewBinding.scannedText.text.toString()
+        val confirmButton = findViewById<Button>(R.id.confirmButton)
+
+        confirmButton.setOnClickListener {
+            var text = scanResult
             // replaces any , with . so that the text can be converted from a string into a double
             if (!text.equals(R.string.placeholder.toString(), true)) {
                 text = text.replace(",", ".")
@@ -98,6 +104,8 @@ class CameraActivity : AppCompatActivity() {
         // the text recognizer, it simply places the scanned text into a view
         val textView = findViewById<TextView>(R.id.scannedText)
         textView.text = scannedText
+        scanResult = scannedText
+        Log.d("!!!", scanResult)
     }
 
     // draws the rectangle overlay

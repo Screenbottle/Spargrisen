@@ -228,13 +228,3 @@ class DatabaseController {
         return currentDate
     }
 }
-
-
-    fun getTodaysDate(): String {
-        val sdf = SimpleDateFormat("25/MM/yyyy")
-        val currentDate = sdf.format(Date())
-        return currentDate
-    }
-
-
-}
