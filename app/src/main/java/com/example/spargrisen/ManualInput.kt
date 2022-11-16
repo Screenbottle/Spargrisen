@@ -70,7 +70,7 @@ class ManualInput : AppCompatActivity() {
         val sendBtn = findViewById<Button>(R.id.sendBtn)
         val date = findViewById<DatePicker>(R.id.calendarView)
 
-        var purchaseDate: String = "" ?: "No date"
+        var purchaseDate: String = android.text.format.DateFormat.format("dd/MM/yyyy", Date()).toString() // Start with today's date
 
         val today = Calendar.getInstance()
         date.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
