@@ -1,19 +1,16 @@
 package com.example.spargrisen.fragments
 
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.spargrisen.DatabaseController
 import com.example.spargrisen.R
 import com.github.aachartmodel.aainfographics.aachartcreator.*
-import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -181,16 +178,17 @@ class GraphFragment : Fragment() {
         //Put all purchases in the correct category
         for (i in dbc.periodList.indices) {
             when (dbc.periodList[i].purchaseCategory) {
-                " Mat/dryck" -> foodCost += dbc.periodList[i].purchaseCost
-                " Boende/hushåll" -> homeCost += dbc.periodList[i].purchaseCost
+                " Food" -> foodCost += dbc.periodList[i].purchaseCost
+                " accommodation" -> homeCost += dbc.periodList[i].purchaseCost
                 " Shopping" -> shoppingCost += dbc.periodList[i].purchaseCost
-                " Hälsa/skönhet" -> healthCost += dbc.periodList[i].purchaseCost
-                " Fritid" -> freeTimeCost += dbc.periodList[i].purchaseCost
+                " Health" -> healthCost += dbc.periodList[i].purchaseCost
+                " Leisure" -> freeTimeCost += dbc.periodList[i].purchaseCost
                 " Transport" -> transportCost += dbc.periodList[i].purchaseCost
-                " Hem/trädgård" -> gardenCost += dbc.periodList[i].purchaseCost
-                " Övrigt" -> otherCost += dbc.periodList[i].purchaseCost
+                " Home" -> gardenCost += dbc.periodList[i].purchaseCost
+                " Other" -> otherCost += dbc.periodList[i].purchaseCost
             }
         }
+
 
         val pieChart: AAChartModel = AAChartModel()
             .chartType(AAChartType.Pie)
@@ -201,14 +199,14 @@ class GraphFragment : Fragment() {
                 arrayOf(
                     AASeriesElement()
                         .data(arrayOf(
-                            arrayOf("Mat/dryck", foodCost),
-                            arrayOf("Boende/hushåll", homeCost),
+                            arrayOf("Food", foodCost),
+                            arrayOf("accommodation", homeCost),
                             arrayOf("Shopping", shoppingCost),
-                            arrayOf("Hälsa/skönhet", healthCost),
-                            arrayOf("Fritid", freeTimeCost),
+                            arrayOf("Health", healthCost),
+                            arrayOf("Leisure", freeTimeCost),
                             arrayOf("Transport", transportCost),
-                            arrayOf("Hem/trädgård", gardenCost),
-                            arrayOf("Övrigt", otherCost),
+                            arrayOf("Home", gardenCost),
+                            arrayOf("Other", otherCost),
 
                         ))
                 )

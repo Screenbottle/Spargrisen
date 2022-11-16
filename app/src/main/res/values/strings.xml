@@ -19,14 +19,14 @@
 
     <string-array name="Kategorival">
 
-        <item>Mat/dryck</item>
-        <item>Boende/hushåll</item>
+        <item>Food</item>
+        <item>accommodation</item>
         <item>Shopping</item>
-        <item>Hälsa/skönhet</item>
-        <item>Fritid</item>
+        <item>Health</item>
+        <item>Leisure</item>
         <item>Transport</item>
-        <item>Hem/trädgård</item>
-        <item>Övrigt</item>
+        <item>Home</item>
+        <item>Other</item>
 
     </string-array>
 

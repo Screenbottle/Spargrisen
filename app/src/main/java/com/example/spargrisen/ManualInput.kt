@@ -3,18 +3,17 @@ package com.example.spargrisen
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.spargrisen.fragments.GraphFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.spargrisen.fragments.HomeFragment
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.type.Date
+import java.util.*
 import java.util.*
 
 class ManualInput : AppCompatActivity() {
@@ -32,7 +31,6 @@ class ManualInput : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manual_input)
-
 
         val kategorival = resources.getStringArray(R.array.Kategorival)
         val spinner = findViewById<Spinner>(R.id.spinner)

@@ -4,11 +4,10 @@ import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 
 /* Noteringar till teamet
@@ -228,3 +227,6 @@ class DatabaseController {
         return currentDate
     }
 }
+
+
+
